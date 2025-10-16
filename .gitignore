@@ -1,0 +1,22 @@
+# LaTeX and auxiliary build files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lol
+*.lot
+*.nav
+*.out
+*.snm
+*.tdo
+*.toc
+*.synctex.gz
+*.nlo
+*.nls
+*.vrb
+*.pdf
