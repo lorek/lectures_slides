@@ -1,0 +1,247 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+ % macro, packages
+\input{setup/packages3}
+\input{setup/macros3}
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{twr}[deff]{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &    2025/26   \\ \\
+\multicolumn{3}{c}{   List nr 1} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}} \bigskip\bigskip
+\par \bigskip
+
+%\setstretch{1}
+ 
+ 
+\ \ \ \textbf{Probability}
+
+\begin{enumerate}
+
+\item Let  $T$ be a random variable taking non-negative integer values.
+Show that  $ET=\sum_{k=0}^\infty P(T>k)$.
+
+
+\item Prove the following
+\begin{lem}[Markov's inequality]  Let  $X$ be a non-negative random variable. Then
+ $\forall r>0$
+$$P(X\geq r)\leq{EX\over r}$$
+\end{lem}
+
+
+\item   Prove the following
+\begin{lem}[Chebyshev's inequality] Let $X$ be a random variable with mean $\mu<\infty$
+and variance $\sigma^2<\infty$.
+Then  $\forall r>0$
+$$P(|X-\mu|\geq r)\leq{\sigma^2\over r^2}$$
+\end{lem}
+
+\item Show that 
+\begin{itemize}
+ \item for each $x\in\mathbb{R}$ we have  $1+x\leq e^x$,
+ \item for each $x\geq 0$ we have  $\ln(1+x)\geq {x\over 1+x/2}$.
+\end{itemize}
+
+
+
+
+\item  Prove the following
+\begin{lem}[Chernoff  inequality ] Let $X_i$ be iid random 
+varible with distribution $P(X_i=1)=p_i=1-P(X_i=0)$.
+Let $S=\sum_{i=1}^n X_i$ and  $\mu=ES=\sum_{i=1}^n EX_i=\sum_{i=1}^n p_i$. 
+Then, for each  $\varepsilon>0$ we have 
+$$P(S>(1+\varepsilon)\mu)\leq\left(e^\varepsilon\over (1+\varepsilon)^{1+\varepsilon}\right)^\mu$$ 
+and
+$$P(S<(1-\varepsilon)\mu)\leq\left(e^{-\varepsilon}\over (1-\varepsilon)^{1-\varepsilon}\right)^\mu$$ 
+
+ 
+\end{lem}
+
+\item Show that previous exercise implies that for $\varepsilon\in(0,1)$ we have
+$$P(S<(1-\varepsilon)\mu)\leq e^{-{\varepsilon^2\over 2}\mu}$$
+and
+$$P(S<(1+\varepsilon)\mu)\leq e^{-{\varepsilon^2\over 2+\varepsilon}\mu}$$
+
+\item Using previous exercises show the following
+
+\begin{lem}   Let $Y_1,\ldots,Y_R$ be i.i.d indicator variables with $p=\E Y_i$ and $\hat{Y}_R={1\over R}\sum_{i=1}^R Y_i.$
+Fix   $\varepsilon, \delta\in(0,1)$. If  $R\geq{3\ln{2\over \delta}\over \varepsilon^2 p}$,
+then
+$$\Prob\left(|\hat{Y}_R-p|\geq \varepsilon p\right)\leq \delta.$$
+\end{lem}
+
+
+
+
+
+\bigskip\par 
+\textbf{Markov chains}
+
+ 
+\item\label{zad_wyk} Consider a simple random walk on 
+$\E=\{1,2,3,4\}$ with transition matrix 
+$$\PP=\left[
+\begin{array}{cccc}
+     0 & 1/2 & 0 & 1/2  \\[5pt]
+      1/2 & 0 & 1/2 & 0  \\[5pt]
+     0 & 1/2 & 0 & 1/2  \\[5pt]
+      1/2 & 0 & 1/2 & 0  \\
+    \end{array}\right]
+$$ and initial distribution $\mu=(1,0,0,0)$
+
+\begin{itemize}
+ \item[a)] Compute $\mu^3$
+ \item[b)] Compute $\mu^n$ (``geussing'' the solution and proving it is correct by induction).
+\end{itemize}
+
+ \item\label{zad_gothenburg}[Gothenburg model of weather]. 
+ Consider a chain on two states $\E=\{\textrm{rainy},\textrm{sunny}\}$.
+ After a rainy day there is again rainy day with probability 3/4, whereas after a sunny day 
+ there is a sunny day with alsow a probability 3/4. 
+ Let us enumerate the states $\e_1=\textrm{rainy}, \e_2=\textrm{sunny}$. Then, the transition matrix is
+$$\PP=\left[
+\begin{array}{cc}
+     {3/4} & {1/ 4} \\[5pt]
+{1/ 4} & {3/ 4}
+    \end{array}\right]
+$$
+Assume  $\mu=(0,1)$.
+\begin{itemize}
+ \item[a)] Compute $\mu^2$ for initial distribution  $\mu=(0,1)$.
+ \item[b)] Compute $\mu^n$ for initial distribution  $\mu=(0,1)$ using diagonalization of $\PP$.
+ \item[c)] Using b), compute $\lim_{n\to\infty}\mu^n$ for any initial distribution.
+\end{itemize}
+ 
+\item\label{zad_LA}[LA (Los Angeles) model of weather]. As in previous exercise 
+$\E=\{\e_1,\e_2\}=\{\textrm{rainy},\textrm{sunny}\}$, the transition matrix is
+$$\PP=\left[
+\begin{array}{cc}
+     {1/2} & {1/ 2} \\[5pt]
+{1/ 10} & {9/ 10}
+    \end{array}\right]
+$$
+Provide a formula for $\mu^k$ for initial distribuions:
+\par 
+a) $\mu=(1,0), \qquad\qquad\qquad$ b) $\mu=(1/2,1/2), \qquad\qquad \qquad$ c) $\mu=(1/6, 5/6)$
+\medskip\par 
+Anything interesting for one of the cases?
+\smallskip\par 
+What does $\mu^k$ converge to in each case, as $k\to\infty$? 
+ 
+
+\item
+Let $(X_0, X_1,\ldots)$ be a time-homogenous Markov chain 
+with transition matrix $\PP$ and state space
+$\E=\{\e_1,\ldots,\e_M\}$, i.e., $P(X_{n+1}=\e_j | X_n=\e_i)=\PP(\e_i,\e_j)$.
+Show that   $$P(X_{n+m}=\e_j | X_n=\e_i)=\PP^m(\e_i,\e_j)$$
+
+
+\item For card shuffling scheme Top-To-Random  
+(one step: take top card and put it in a deck \textsl{uniformly at random}) for $n=3$ cards 
+provide a transition matrix $\PP$ and draw a transition graph. Compute also $\PP^2$.
+
+\item For two probabilistic measures  $\mu,\nu$ on $\E=\{\e_1,\ldots,\e_M\}$ 
+we define a  \textsl{total variation distance }: $d_{TV}(\mu,\nu)={1\over 2}\sum_{\e\in E} |\mu(\e)-\nu(\e)|$. \par 
+Compute total variation distance between distributions:
+$\mu\sim Bin(4,1/2), \nu\sim Bin(4,1/4)$
+
+\item On a state space  $E=\{1,2\}$ we define: $\mu^k=\left[{1\over 6}+{1\over 3}\left({2\over 5}\right)^k,{5\over 6}-{1\over 3}\left({2\over 5}\right)^k\right]$ and  $\nu=\left[{1\over 6}, {5\over 6}\right]$.
+\begin{itemize}
+ \item[a)] Compute z $d_{TV}(\mu^k,\nu)$.
+ \item[b)] For what (integer) $k$ the total variation distance between  $\mu^k$ and $\nu$ 
+ is smaller than 0.01?
+\end{itemize}
+
+\item Consider $n$ cards. Let  $\mu$ be a uniform distribution 
+on all $n$ permutations of the cards. Let $\mu$ be a uniform distribution 
+on all permutations such that first card is fixed.\par 
+Compute  $d_{TV}(\mu,\nu)$.
+\end{enumerate}
+ 
+
+
+
+
+\end{document}

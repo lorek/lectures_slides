@@ -1,0 +1,265 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{twr}[deff]{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{setup/packages2}
+\input{setup/macros2}
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &     2024/25   \\ \\
+\multicolumn{3}{c}{   List nr 2} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}} \bigskip\bigskip
+\par \bigskip
+
+%\setstretch{1}
+ 
+  
+
+\begin{enumerate}
+
+\item Let $X$ be an irreducible and aperiodic Markov chain on  $\E=\{\e_1,\ldots,\e_M\}$ 
+with a transition matrix  $\PP$.
+Define 
+$$T_{i,j}=\min\{n\geq 1: X_n=\e_j\ | X_0=\e_i\}$$
+(with convention $T_{i,j}=\infty$ if chain never reaches $\e_j$).
+We show at the lecture that 
+$\forall(\e_i,\e_j\in\E) \ \tau_{i,j}=ET_{i,j}<\infty$. We also defined
+$$\rho(\e_i)=\sum_{n=0}^\infty Pr(X_n=\e_i, T_{1,1}\geq n)$$
+and showed that  $\pi(\e_j):={\rho(\e_j)\over \tau_{1,1}}$ fulfills
+\begin{equation}\label{eq:pi}
+\pi(\e_j)=\sum_{i=1}^M \pi(\e_i)\PP(\e_i,\e_j)
+\end{equation}
+for $\e_j\neq \e_1$. Show that (\ref{eq:pi}) holds also for  $\e_j=\e_1$.
+
+
+\item For $X$ from previous exercise let  $N_i$ be a number 
+of visits in  $\e_i$ between visits in  $\e_1$
+(for $i=1$ we do not count first visit, i.e., $N_1=1$). Show that 
+$$EN_i=\rho(\e_i).$$
+
+\item 
+For Exercises   7, 8, 9 b) from List 1 show valid initialization and update functions 
+(in case of Exercise 8 show at least two different initialization and update functions).
+
+\item 
+The total variation distance between two measures  $\nu$ and $\mu$ on $\E$ 
+was defined as $d_{TV}(\mu,\nu)={1\over 2}\sum_{\e\in\E}|\mu(\e)-\nu(\e)|$.
+Show that 
+$$d_{TV}(\mu,\nu)=  \sum_{\e: \mu(\e)>\nu(\e)} (\mu(\e)-\nu(\e))=\sum_{\e: \nu(\e)>\mu(\e)} (\nu(\e)-\mu(\e)).$$
+
+
+\item
+Show that 
+$$ d_{TV}(\mu,\nu)=\max_{A\subseteq \E} |\mu(A)-\nu(A)|,$$
+where $\mu(A):=\sum_{\e\in A}\mu(A)$.
+
+\item
+Provide an example of a transition matrix $\PP$ of size $3\times 3$ for which there exist
+at least two different distributions $\pi$ such that  $\pi\PP=\pi$.
+Can you show such a matrix $\PP$ for which $\pi\PP=\pi$ holds for any distribution $\pi$?
+
+\item
+Let  $X=\{X\}_{n\geq 0}$ be a (time homogeneous) Markov chain on $\E=\{\e_1,\ldots,\e_M\}$.
+Show that for integers  $a,a'>0$ and any  $\e\in\E$ we have
+$$P(X_a=\e, X_{a+a'}=\e | X_0=\e) = P(X_{a'}=\e |X_0=\e)\cdot P(X_{a}=\e |X_0=\e).$$
+
+\item(Ehrenfest Urn Model) Any out of $N$ particles 
+may be either in a container $A$ or in a container $B$. Assume that at step $k\geq 0$ there are 
+$X_k=i$ particles in a container $A$. Then, one particle is chosen uniformly at random 
+and is relocated to the other container. Thus,  at step $k+1$, the state $X_{k+1}$ is either $i-1$ or $i+1$.
+The state space is $\E=\{0,1,\ldots,N\}$. Provide a transition matrix $\PP$ and find its stationary distribution.
+
+
+\item 
+Referring to the previous exercise: Assume we have $N$ particles we place each one independently
+either in container $A$ or $B$ (i.e., with probability 1/2).
+What is a distribution of number of particles in container $A$ after such operation?
+
+\item(Birth and death chain with two reflecting barriers)
+Let  $X$ be a Markov chain on $\E=\{0,1,\ldots,N\}$ with following transition matrix:
+$$\PP=\left[
+\begin{array}{ccccccccc}
+0 & 1 & 0 & 0 & 0  & 0 &\ldots & 0 \\[5pt]
+q_1 & r_1 & p_1 & 0 & 0 & 0 &\ldots & 0 \\[5pt]
+0 & q_2 & r_2 & p_2 & 0 & 0 &\ldots & 0\\[5pt]
+  &      & \ddots& \ddots& \ddots\\[5pt]
+0 & 0 & 0 & q_i & r_i & p_i &0 \ldots &0 \\[5pt]
+ &  & &      & \ddots& \ddots& \ddots\\[5pt]
+ 0&\ldots &  & &      & q_{N-1} & r_{N-1} & p_{N-1} \\[5pt]
+ 0&\ldots &  & &      & 0 & 1 & 0 \\[5pt]
+    \end{array}\right],$$
+    where for any  $i\in\{1,\ldots,N-1\}$: $p_i>0, q_i>0, p_i+q_i+r_i=1$. 
+    Find its stationary distribution.
+
+\item
+Find the stationary distribution of a Markov chain $X$ on  $\E=\{1,2,3\}$ with transition matrix
+$$\PP=\left[
+\begin{array}{ccccccccc}
+1-\alpha & \alpha & 0 \\
+0  &1-\beta &\beta  \\
+\gamma&0&1-\gamma\\
+    \end{array}\right],$$
+where $\alpha,\beta,\gamma\in(0,1)$.
+
+\item(\textsc{Top-To-Random} card shuffling) Show from definition that 
+$\pi(\sigma)={1/n!}$ for any $\sigma\in\E=\mathcal{S}_n$ (all permutations of $\{1,\ldots,n\}$) 
+is the stationary distribution \textsc{Top-To-Random} card shuffling.
+
+\item
+For \textsc{Top-To-Random} card shuffling of $n$ cards show smallest possible $k_0$ such that
+it is possible to move from any permutation to any other, i.e.,
+$$k_0=\argmin\{t:   \forall (\sigma_1,\sigma_2 \in\mathcal{S}_n)\quad  \Prob(X_k=\sigma_2 | X_0=\sigma_1)>0\}.$$
+% 
+% $$\forall (\sigma_1,\sigma_2 \in\mathcal{S}_n): \qquad \Prob(X_k=\sigma_2 | X_0=\sigma_1)>0.$$
+
+\item 
+Referring to the previous exercise: Assume the chain starts in identity permutation
+(i.e., $\Prob(X_0=(1,\ldots,n))=1$). Show that the distribution of a chain at time $k_0$ is not uniform.
+
+For  $n=3$ compute  $d_{TV}(\mu^{k_0},\mathcal{U}(\mathcal{S}_3),$ where 
+$\mathcal{U}(\mathcal{S}_3)$ is a uniform distribution on $\mathcal{S}_3$.
+
+\item
+Let $X=\{X\}_{k\geq 0}$ be a Markov chain with a transition matrix $\PP^X$ on $\E=\{\e_1,\ldots,\e_M\}$.
+
+We construct a sequence $Y=\{Y\}_{k\geq 0}$ based on $X$ in such a way that we record only 
+\textsl{new} values of $X_n$.
+I.e., if for some number of steps chain $X$ stays in the same state, value of $Y$ does not change,
+it waits till $X$ will change. For example:
+$$
+\begin{array}{ccccccccccccccccccccccc}
+ n = & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\[5pt]
+ X_n = &\e_1 & \e_1 &\e_1 & \e_2 &\e_2 & \e_1 & \e_3& \e_3& \e_3& \e_2 &\e_1\\
+ & Y_0=\e_1& & & Y_1=\e_2 & & Y_2=\e_1 & Y_3=\e_3& & & Y_4=\e_2 & Y_5=\e_1\\
+\end{array}
+$$
+Show that $\{Y\}_{n\geq 0}$ is a Markov chain, provide its transition probabilities in terms 
+of transition probabilities of $X$.
+
+\item
+
+Let $X=\{X\}_{n\geq 0}$ and $Y=\{Y\}_{n\geq 0}$ be two Markov chains 
+on the same state space  $\E=\{1,2\}$ with transition matrix
+$$\PP=\left[
+\begin{array}{ccccccccc}
+1-\alpha & \alpha \\
+\beta & 1-\beta \\
+\end{array}\right],$$
+where $\alpha,\beta\in(0,1)$. Assume that  $X_0=1, Y_0=2$ and they both move according to $\PP$ independently.
+Let $T$ be the first time the chains meet, i.e., 
+$$T=\argmin_{k}\{X_k=Y_k\}.$$
+Provide a distribution of $T$.
+
+
+
+\item 
+Let   $X=\{X\}_{n\geq 0}$ be a Markov chain with two 
+stationary distributions  $\pi$ and $\pi'$. Show that then
+$p\pi+(1-p)\pi'$ for any $p\in(0,1)$ is also its stationary distribution.
+
+\item Consider the following Markov chain $X$. Let 
+$a,b\geq 2$ be two integer numbers. The state space is:
+    $$\E=\{(x,y) : x\in\{0,\ldots, a-1\}, y\in\{0,\ldots,b-1\}\}.$$
+     
+   The dynamics of the chain is as follows. Being in $(x,y)$ at step  $k$,  in the next step the 
+   chain is either at
+   \begin{itemize}
+    \item[--]
+    $((x+1) \textrm{ mod } a,y)$ with probability  ${1\over 2}$ or in a state
+    \item[--] 
+    $(x,(y+1) \textrm{ mod } b)$ with probability ${1\over 2}$.
+    
+   \end{itemize}
+
+\begin{itemize}
+ \item[a)] Show that $X$ is irreducible.
+ \item[b)] Show that $X$ is aperiodic iff $\gcd(a,b)=1$
+\end{itemize}
+  
+\end{enumerate}
+ 
+
+
+
+
+\end{document}

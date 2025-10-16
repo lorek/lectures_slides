@@ -1,0 +1,234 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+ \usepackage{algorithm}
+\usepackage{algorithmic}
+%Change: REQUIRE -> Input and ENSURE -> Output
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+\newtheorem{deff}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.2cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.2cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{setup/packages2_noalg}
+\input{setup/macros2}
+ 
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &    2024/25  \\ \\
+\multicolumn{3}{c}{   List nr 10 } \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}}
+\bigskip\bigskip
+ 
+% \textbf{Ising model}. Let $G=(V,K)$ be a graph. Ising model provides a way 
+% of choosing a random element $\e$ from $\{-1,+1\}^V$, called a \textsl{configuration}.
+% For a given configuration $\e$ by $e(v)\in\{-1,+1\}$ we denote its (spin) value at vertex $v$.
+% Fix some $\beta\neq 0$. For a given configuration we define its energy by
+% $$H(\e)=-\sum_{(w,w')\in K} e(w)e(w').$$
+% The Ising model is a distribution 
+% $$\pi(\e)={1\over C} \exp\left(-\beta H(\e)\right)
+% ={1\over C} \exp\left(\beta \sum_{(w,w')\in K} e(w)e(w')\right).$$
+% 
+
+\par \bigskip 
+We consider a Markov chain $X$ on a finite state space $\E=\{\e_1,\ldots,\e_M\}$.
+We assuma that $\E$ is partially ordered by $\preceq$. Moreover,
+we assume that 
+$$\forall(\e\in\E)\qquad \e_1\preceq \e\preceq \e_M.$$
+Given $X_k$ we simulate $X_{k+1}$ using $U_{k+1}\sim\mathcal{U}(0,1)$ and an \textsl{update function} $\psi: \E\times[0,1]\to\E$ in the following way:
+$$X_{k+1}=\psi(X_k,U_{k+1}).$$
+Recall, $\psi$ is an update function for a Markov chain $X$ with t.m. $\mathbf{P}$ 
+if 
+\begin{enumerate}
+ \item for fixed $\e_i$, the function $\psi(\e,u)$ is piecewise constant 
+ (as a function of $u$), and
+ \item For all $\e_i, \e_j\in\E$ we have $\displaystyle \int_0^1 \boldsymbol{1}(\psi(\e_i,u)=\e_j)\; du = \mathbf{P}(\e_i,\e_j).$
+\end{enumerate}
+Three more definitions:
+\medskip\par 
+\begin{deff}
+ An update function $\psi$ is \textbf{monotone} w.r.t $\preceq$ if
+ $$\forall(\e_i\preceq\e_j\in E) \forall(u\in[0,1])\qquad \psi(\e_i,u)\preceq\psi(\e_j,u).$$
+\end{deff}
+\medskip\par 
+\begin{deff}
+A Markov chain with a t.m. $\mathbf{P}$ is \textbf{realizable monotone} w.r.t. $\preceq$ if there exists a corresponding monotone (w.r.t. $\preceq$) update 
+function $\psi$.
+\end{deff}
+\medskip\par 
+Recall also a coupling from the past (CFTP) algorithm.
+
+\medskip\par 
+\begin{algorithm}[H]
+\caption{Efficient coupling from the past (CFTP).} \label{alg:cftp_eff}
+\begin{algorithmic}[1] 
+\REQUIRE State space $\E$, ergodic chain $X$, a monotone update function $\psi$
+\STATE Set $n=1$
+\STATE Start two chains at time  $-N_n$, one at the minimum $\e_1$, 
+the other at the maximum $\e_M$.
+Run the chains  till time 0 using the same update 
+rule $\phi$ and iid random variables $U_{-N_n+1}, U_{-N_n+2},\ldots, U_{-1}, U_0$ 
+uniformly distributed on $[0,1]$ (the same for each chain).
+\STATE If both chains in previous step end up in the same state $\e$ at time $0$, then output $\e$ and \textbf{stop}. 
+\STATE Set $n=n+1$ and go to Step 2  (keep previously used $\{ U_i \}_{\leq -N_n+1\leq i \leq 0}$
+for new $n$).
+\end{algorithmic}
+\end{algorithm}
+
+\newpage 
+Two more definitions
+\begin{deff}
+A set $A\subseteq \E$ is an \textbf{upset} if 
+ $$(\e \preceq \e', \e\in A) \ \Rightarrow \ \e'\in A.$$
+\end{deff}
+
+\begin{deff}
+A Markov chain with a t.m. $\mathbf{P}$ is \textbf{stochastically monotone} w.r.t. $\preceq$ if
+ $$\forall (\e_i\preceq \e_j) \forall (A - \textrm{upset})\quad \mathbf{P}(\e_i,A)\leq \mathbf{P}(\e_j,A).$$
+\end{deff}
+
+\medskip\par 
+\begin{enumerate}
+\item
+
+ Recall the definition of the birth and death process on a state space $\E=\{0,1,\ldots,M\}$ with the transition probability matrix
+$$\PP=\left[
+\begin{array}{ccccccccc}
+1-p_0 & p_0 & 0 & 0 & 0  & 0 &\ldots & 0 \\[5pt]
+q_1 & r_1 & p_1 & 0 & 0 & 0 &\ldots & 0 \\[5pt]
+0 & q_2 & r_2 & p_2 & 0 & 0 &\ldots & 0\\[5pt]
+  &      & \ddots& \ddots& \ddots\\[5pt]
+0 & 0 & 0 & q_i & r_i & p_i &0 \ldots &0 \\[5pt]
+ &  & &      & \ddots& \ddots& \ddots\\[5pt]
+ 0&\ldots &  & &      & q_{N-1} & r_{N-1} & p_{N-1} \\[5pt]
+ 0&\ldots &  & &      & 0 & q_0 & 1-q_0 \\[5pt]
+    \end{array}\right],$$
+    where $p_0>0, q_0>0$ and for all $i\in\{1,\ldots,M-1\}$: $p_i>0, q_i>0, p_i+q_i+r_i=1.$ 
+    
+\begin{enumerate}
+ \item When (what is a restriction on $p_i,q_i$) is a birth and death chain   stochastically monotone w.r.t. linear 
+ ordering $\preceq:=\leq$?
+ 
+ \item Provide some update function for birth and death chain. Check if it is monotone.
+ If it is, describe shortly a CFTP algorithm.
+ 
+ \item Show that realizable monotonicity implies stochastic monotonicity.
+ 
+ \item (*) Show that for linear ordering $\preceq:=\leq$ stochastic monotonicity 
+ of a chain is equivalent to realizable monotonicity.
+ 
+ 
+     
+\end{enumerate}
+
+
+\item\label{exer:non-sym_square_real_mon} (Non-symmetric random walk on a square).
+Consider a state space  $\mathcal{S}=\{0,1\}^2 = \{0 \equiv (0,0), 1 \equiv (1,0), 2 \equiv (0,1), 3 \equiv (1,1)\}$.
+Let $\alpha\in(0,1/2), \beta\in(0,1/2)$. Define a non-symmetric random walk $(X_k)$ on $\mathcal{S}$ with a transition matrix:
+$$
+\mathbf{P}=\left(
+\begin{array}{ccccc}
+1-2\alpha & \alpha & \alpha & 0 \\
+\beta& 1-\alpha-\beta & 0  & \alpha \\
+\beta& 0& 1-\alpha-\beta & \alpha \\
+0&\beta& \beta& 1-2\beta & \\
+\end{array}\right)
+$$
+Roughly speaking, being in $s=(e_1,e_2)$, where $e_i\in\{0,1\}$, the chain may change a coordinate with value
+0 to 1 with probability $\alpha$ and 1 to 0 with probability $\beta$, or it does nothing with the remaining probability.
+
+Let us introduce coordinate-wise ordering. For $\e = (e_1, e_2)$ and $\e' = (e'_1, e'_2)$, define:
+$$\e \preceq \e' \ \Leftrightarrow e_1' \leq e_1' \textrm{ and } e_2' \leq e_2'.$$
+Note that $0\equiv (0,0)$ is the minimum and $3\equiv (1,1)$ is the maximum.
+
+\medskip\par\noindent
+Show that $(X_k)$ is realizable monotone if $\alpha+\beta\leq 1/2$, provide explicitly a monotone update function $\varphi$.
+
+\item Reconsider a random walk $(X_k)$ from Exercise \ref{exer:non-sym_square_real_mon}.
+For what values of $\alpha$ and $\beta$ is the chain stochastically monotone?
+
+\end{enumerate}
+
+
+
+
+
+\end{document}

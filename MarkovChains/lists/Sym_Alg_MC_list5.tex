@@ -1,0 +1,183 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{setup/packages2}
+\input{setup/macros2}
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &     2024/25  \\ \\
+\multicolumn{3}{c}{   List nr 5} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}} \bigskip\bigskip
+\par \bigskip
+
+%\setstretch{1}
+ 
+  For a transition matrix $\PP$  of size $M\times M $ we denote its eigenvalues in non-increasing (w.r.t. absolute value) 
+  order: $|\lambda_1|\geq|\lambda_2|\geq \ldots\geq |\lambda_M$.
+\medskip\par 
+  \textbf{Poincare constant}. Let $X$ be a reversible Markov chain with a transition matrix $\PP$ on a graph $G=(V,K)$, where $V=\{\e_1,\ldots,\e_M\}$ are the vertices and $K=\{(\e_i,\e_j): \PP(\e_i,\e_j)>0\}$ are the edges. For a directed edge $\tilde{k}=(\e_i,\e_j)$ ($\e_i$ is the starting edge) define $\Lambda(\tilde{k})=\pi(\e_i)\PP(\e_i,\e_j)$. For set verices $\e_i$ and $\e_j$ let $\Gamma(\e_i,\e_j)$ be a deterministic, unique path. Let $|\Gamma(\e_i,\e_j)|=\sum_{\tilde{k}\in\Gamma(\e_i,\e_j)} 1$ be a length of that path.
+Poincare constant is defined as 
+$$\gamma_P:=\max_{\tilde{k}} \left\{ {1\over \Lambda{(\tilde{k})}} \sum_{(\e_i,\e_j): \tilde{k}\in\Gamma(\e_i,\e_j)} |\Gamma(\e_i,\e_j)| \pi(\e_i)\pi(\e_j) \right\}$$
+(for set $\tilde{k}$ the sum goes through all the vertices $(\e_i,\e_j)$ such that the edge $\tilde{k}$ belongs to the path $\Gamma(\e_i,\e_j)$).
+
+\begin{theorem}
+Let $\lambda_2$ denote the second largest (in terms of absolute value) eigenvalue of a transition matrix $\PP$ of a reversible Markov chain $X$. Then
+$$|\lambda_2|\leq 1-{1\over\gamma_P}.$$
+\end{theorem}
+
+Similarly to the Poincare constant, for a reversible and ergodic Markov chain $X\sim \PP$  one can define  \par 
+\textbf{Cheeger constant}
+$$\gamma_C:=\min_{A\subset\E: \pi(A)\leq 1/2} { \displaystyle  \sum_{\e_i\in A} \sum_{\e_j\in A^C} \pi(\e_i)\PP(\e_i,\e_j) \over \pi(A)}.$$
+\begin{theorem} With $\lambda_2$ defined as previously we have
+$$|\lambda_2|\leq 1-{1\over 2}\gamma_C^2.$$
+\end{theorem}
+ 
+ Having a bound on $|\lambda_2|$ we have a bound on total variation distance:
+\begin{theorem} For a reversible Markov chain $X\sim\PP$ we have
+$$d_{TV}(\delta_\e\PP^n,\pi)\leq {1\over 2} {1\over \sqrt{\pi(\e)}} |\lambda_2|^n,$$
+where $\delta_\e\PP^n$ is the distribution of the $n-$th step of the chain that started in state $\e$.
+\end{theorem}
+
+% \begin{theorem} For any (not necessarily reversible!) Markov chain $X\sim\PP$ we have 
+% $$d_{TV}(\delta_\e\PP^n,\pi)\leq {1\over 2} {1\over \sqrt{\pi(\e)}} |\lambda_2(M)|^{n\over 2},$$
+% where $\lambda_2(M)$ is the second largest (in terms of absolute value) eigenvalue of a matrix $M=\PP\tilde{\PP}.$
+% \end{theorem}
+\newpage 
+
+
+
+\begin{enumerate}
+\item 
+  For $\phi:\E\to\mathcal{R}$ we have defined 
+  $Var(\phi)={1\over 2}\sum_{\e_i, \e_j\in\E} (\phi(\e_i)-\phi(\e_j))^2 \pi(\e_i)\pi(\e_j).$\smallskip\par 
+  Show that 
+  $Var(\phi)=\sum_\e \phi^2(\e)\pi(\e)-\left(\sum_\e\phi(\e)\pi(\e)\right)^2.$ 
+
+  
+  \item
+  Show that for $n_{\gamma_P}(\varepsilon)=\gamma_P \log\left({1\over 2\varepsilon\sqrt{\pi(\e)}}\right)$
+$$d_{TV}(\delta_\e\PP^{n_{\gamma_P}(\varepsilon)},\pi)\leq \varepsilon,$$
+where $\gamma_P$ is the Poincare constant.
+
+\item
+Show that for $n_{\gamma_C}(\varepsilon)={2\over \gamma_C^2} \log\left({1\over 2\varepsilon\sqrt{\pi(\e)}}\right)$
+$$d_{TV}(\delta_\e\PP^{n_{\gamma_C}(\varepsilon)},\pi)\leq \varepsilon,$$
+where $\gamma_C$ is the Cheeger constant.
+ 
+\item  Consider the symmetric random walk on a circle: $\E=\{0,1,\ldots,n-1\}$.
+$$\PP=\left[
+\begin{array}{ccccccccc}
+1-2p & p & 0 & 0  & \ldots & 0& 0 & p\\[7pt]
+p & 1-2p & p & 0 & \ldots & 0 &0&0\\[7pt]
+0 & p & 1-2p & p & 0 &\ldots & 0 &0\\[7pt]
+  &    &     &   &   & \ddots & & \\[7pt]
+p & 0 & 0 & 0 & 0 &\ldots & p &1-2p\\[7pt]
+\end{array}\right],$$
+where $p<\frac{1}{2}.$ Calculate (or estimate) $\gamma_P.$
+ 
+\item For previous exercise, recall (from lecture) the formula for  $\gamma_C$. 
+For what $p$ the Cheeger constant is better that the Poincare constant in the case of random walk on a circle (by better we mean that it gives better estimation in Theorem 2).
+%  
+% \item Once again consider a random walk on a circle: $\E=\{0,1,\ldots,n-1\}$
+% $$\PP=\left[
+% \begin{array}{ccccccccc}
+% 1-p & p & 0 & 0  & \ldots & 0& 0 & 0\\[7pt]
+% 0 & 1-p & p & 0 & \ldots & 0 &0&0\\[7pt]
+% 0 & p & 1-p & p & 0 &\ldots & 0 &0\\[7pt]
+%   &    &     &   &   & \ddots & & \\[7pt]
+% p & 0 & 0 & 0 & 0 &\ldots & p &1-p\\[7pt]
+% \end{array}\right].$$
+% Show that by calculating $\mathbf{M}=\PP\tilde{\PP}$ the task to calculate $\gamma_C$ and $\gamma_P$ reduces to exercises 4 and 5. Give the estimations.
+ 
+\item Let $X$ be a simple random walk on a graph $G=(V,K),$ where $V=\{\e_1,\ldots,\e_M\}$ are the vertices and $K=\{(\e_i,\e_j): \PP(\e_i,\e_j)>0\}$ are the edges. Let the transition matrix be $\PP(v_i,v_j)=1/d(v_i)$ if $(v_i,v_j)\in K,$ where $d(v_i)$ is the degree of vertex $v_i.$ Let $\Gamma(v,v')$ denote some choice of a path from $v$ to $v'$ which doesn't include the same edge more than once. Define 
+$$d^*=\max_v d(v),\qquad  s^*=\max_{v,v'} |\Gamma(v,v')|,  \qquad \eta^*=\max_{\tilde{k}\in K} \#\{(v,v')\in V^2: \tilde{k}\in\Gamma(v,v')\}.$$
+Show that $\gamma_P\leq {(d^*)^2 s^* \eta^*\over |K|}.$
+ 
+ \end{enumerate}
+
+
+
+
+\end{document}

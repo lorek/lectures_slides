@@ -1,0 +1,205 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{/home/lorek/Dropbox/LaTeX/setup/packages2}
+\input{/home/lorek/Dropbox/LaTeX/setup/macros2}
+ 
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &    2024/25  \\ \\
+\multicolumn{3}{c}{   List nr 7 } \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}}
+\bigskip\bigskip
+  \begin{center}
+   \textbf{Strong Stationary Times}
+  \end{center}
+  
+  \section{Matching in graph}
+  Recall, the algorithm for matching (running time -- SST): Initailly color all pairs black.
+  \begin{itemize}
+   \item \textbf{If} $L_k=R_k$ and chosen pair is black -- color it red
+   \item \textbf{If} $L_k\neq R_k$ and exactly one of pairs is black -- color it red
+   \item \textbf{If} all pairs red then \textbf{Stop}
+  \end{itemize}
+We showed that its running time $T$ can be decomposed as
+$$T=\sum_{i=0}^{n-1} X_i,$$
+where $X_i$ is $Geo(p_i)$, $i$ pairs are red, coloring next one happens with probability
+$$p_i={n-i \over n^2}+2{i\over n}{(n-i)\over n}={(n-i)(2i+1)\over n^2}$$
+We have
+$$ET=\sum_{i=0}^{n-1} EX_i =\sum_{i=0}^{n-1} {1\over p_i} = n^2 \sum_{i=0}^{n-1} {1\over (n-i)(2i+1)}
+=n^2 \sum_{i=1}^{n} {1\over (n-i+1)(2i-1)}$$
+Note:
+$$
+{2\over 2i-1} + {1\over n-i+1} = {2(n-i+1)+2i-1\over (n-i+1)(2i-1)}={2n\over (n-i+1)(2i-1)},
+$$
+thus
+$${1\over (n-i+1)(2i-1)}={1\over 2n} {2n\over (n-i+1)(2i-1)}={1\over 2n} \left({2\over 2i-1} + {1\over n-i+1}\right)$$
+and
+$$ET=n^2 \sum_{i=1}^{n} {1\over (n-i+1)(2i-1)}={n\over 2} \sum_{i=1}^{n} \left({2\over 2i-1} + {1\over n-i+1}\right)
+$$
+Seperately:
+$$\sum_{i=1}^{n}  {1\over n-i+1}=\sum_{i=1}^n {1\over i} = H_n \approx \log n$$
+For the second term we may approximate
+$$\sum_{i=1}^{n} {2\over 2i-1}\approx \sum_{i=1}^{n} {2\over 2i} =    H_n \approx \log n$$
+% or more accurately
+% $$\sum_{i=1}^{n} {2\over 2i-1}=2\left(\sum_{i=1}^{2n-1} {1\over i}-\sum_{i=1}^{n-1} {1\over 2i}\right)
+% =2\left(H_{2n-1}-{1\over 2}H_{n-1}\right)=2H_{2n-1}-H_{n-1}\approx 2\log(2n)-\log n=\log(4n^2)=\log(4n)$$
+
+Finally,
+$$ET\approx {n\over 2} \cdot 2\log n = n\log n$$
+
+
+\par \bigskip
+\section{Random-to-random transposition}
+We have $n$ cards. At step $k$ we choose independently $L_k\sim\mathcal{U}(\{1,\ldots,n\})$ and
+ $R_k\sim\mathcal{U}(\{1,\ldots,n\})$ and we swap cards  numbered $L_k$ and $R_k$.
+ \medskip\par
+ NOTE: if \textsl{``we swap cards  at positions $L_k$ and $R_k$''} \textsl{``we swap cards  numbered $L_k$ and $R_k$''},
+ this describes the same Markov chain.
+
+ \medskip\par
+ You may use:
+ $$H_n=\sum_{i=1}^n {1\over i} \approx \log n ,\qquad H_n^{(2)}=\sum_{i=1}^n {1\over i^2}\approx {\pi^2\over 6},
+ \qquad \sum_{i=1}^{n/2}{n^2\over (n-i)^2}\leq 2n.$$
+
+ \medskip\par
+
+
+Below, different marking schemes are described.  Let $T$ be the time till all cards are colored red.
+For a given scheme:
+\begin{itemize}
+ \item[a)] Show that  $T$ is SST.
+ \item[b)] Compute $ET$ and $VarT$ (results $O(\cdot)$ are enough)
+ \item[c)] Using Chebyshev inequality indicate $k$ for which $sep(\mu\PP^k,\pi)$ is small\par
+ (e.g., as we had for Top-2-Random, we had $sep(\mu\PP^k,\pi)\leq c$ for $k=n\log n+cn$)
+\end{itemize}
+
+
+\begin{enumerate}
+\item Simple marking scheme (yields result $ET=O(n^2)$):
+
+\begin{itemize}
+ \item If $L_k$ and $R_k$ are black, color $R_k$ red.
+ \item If all cards are red, then STOP.
+\end{itemize}
+
+
+
+\item Broder's marking scheme (yields result $ET = 2n\log n +o(n\log n)$):
+
+\begin{itemize}
+ \item If $L_k=R_k$ is black , color the card $L_k=R_k$ red.
+ \item If $L_k\neq R_k$ and $L_k$ is red, color $R_k$ red.
+ \item If all cards are red, then STOP.
+\end{itemize}
+
+
+
+
+\item(*) Matthew's marking scheme (yields result $ET = {1\over 2}n\log n +o(n\log n)$):
+
+\begin{itemize}
+ \item If $k\leq \lfloor{n/2}\rfloor$: If $L_k$ and $R_k$ are black, color $R_k$ red.
+ \item If $k>\lfloor{n/2}\rfloor$
+
+\begin{itemize}
+  \item If one $L_k, R_k$ is red and the other is black, color the other red.
+  \item If $L_k=R_k$ is black , color the card $L_k=R_k$ red.
+  \item Let $\phi$ be some an injection from all black cards into pairs of red cards.
+  If $(L_k, R_k)=\phi(i)$, color the card $i$ red.
+\end{itemize}
+
+\end{itemize}
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+\end{document}

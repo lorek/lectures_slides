@@ -1,0 +1,142 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{setup/packages2}
+\input{setup/macros2}
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &     2024/25  \\ \\
+\multicolumn{3}{c}{   List nr 6} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}} \bigskip\bigskip
+\par \bigskip
+
+%\setstretch{1}
+  
+
+
+\begin{enumerate}
+ \item Once again consider a random walk on a circle: $\E=\{0,1,\ldots,n-1\}$, this time 
+ with transition matrix:
+ $$\PP=\left[
+ \begin{array}{ccccccccc}
+ 1-p & p & 0 & 0  & \ldots & 0& 0 & 0\\[7pt]
+ 0 & 1-p & p & 0 & \ldots & 0 &0&0\\[7pt]
+ 0 & 0 & 1-p & p & 0 &\ldots & 0 &0\\[7pt]
+   &    &     &   &   & \ddots & & \\[7pt]
+ p & 0 & 0 & 0 & 0 &\ldots & 0 &1-p\\[7pt]
+ \end{array}\right].$$
+ In other words, the chain moves to the right (modulo $n$) with prob. $p$, with the remaining 
+ probability it does not move.
+ 
+ \par 
+ 
+ Compute  $\mathbf{M}=\PP\tilde{\PP}$. Show that computing 
+  $\gamma_C$ and $\gamma_P$ reduces to (previously computed) computing the constant for 
+  symmetric random walk on circle. Recall the bounds, use them 
+  to provide  bounds for  $d_{TV}(\delta_0\PP^k,\pi)$.
+  
+  
+  \item Consider the following \textsl{broken} random walk on a circle $\E=\{0,1,\ldots,n-1\}$. 
+  All the moves are like in a regular random walk on circle with $p=1/2$, however 
+  instead of moving from last state $n-1$ to $0$, the chain stays at $n-1$ with prob. $1/2$.
+  Thus, the transition matrix is following
+ $$\PP=\left[
+ \begin{array}{ccccccccc}
+ 0 & 1/2 & 0 & 0  & \ldots & 0& 0 & 1/2\\[7pt]
+ 1/2 & 0 & 1/2 & 0 & \ldots & 0 &0&0\\[7pt]
+ 0 & 1/2 & 0 & 1/2 & 0 &\ldots & 0 &0\\[7pt]
+   &    &     &   &   & \ddots & & \\[7pt]
+ 0 & 0 & 0 & 0 & 0 &\ldots & 1/2&1/2\\[7pt]
+ \end{array}\right].$$
+ 
+ Show that the chain is ergodic and find its stationary distribution.
+ 
+ \item Find transition of time reversal (matrix $\tilde{\PP}$) of the chain from previous Exerecise.
+   
+\end{enumerate}
+
+
+
+\end{document}

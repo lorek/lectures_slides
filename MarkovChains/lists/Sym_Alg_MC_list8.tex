@@ -1,0 +1,287 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+ \usepackage{algorithm}
+\usepackage{algorithmic}
+%Change: REQUIRE -> Input and ENSURE -> Output
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.2cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.2cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{/home/lorek/Dropbox/LaTeX/setup/packages2_noalg}
+\input{/home/lorek/Dropbox/LaTeX/setup/macros2}
+ 
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &     2024/25  \\ \\
+\multicolumn{3}{c}{   List nr 8} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}}
+\bigskip\bigskip
+  \begin{center}
+   \textbf{Metropolis Algorithm}
+  \end{center}
+  
+\par \bigskip
+Given a distribution $\pi$ on (usually huge) state space $\E=\{\e_1,\ldots,\e_M\}$, the aim is to sample from $\pi$ (often called a \textbf{target distribution}). 
+
+
+The goal of Metropolis algorithm: construct a Markov chain whose stationary distribution is $\pi$.
+
+We can think of $\E$ as of set of vertices $v_i=\e_i$ and of Markov chain as a random walk on this graph. 
+Let $\Q$ be a matrix of size $M\times M$, denote $\Q=[q_{i,j}]_{i,j=1}^M\equiv [q(\e_i,\e_j)]$.
+Assume that $\Q$ is \textbf{symmetric}. For example, we can introduces some vertices $K$, i.e.,
+there is an edge between $v_i$ and $v_j$ (often we say they are neighbours) if  $(v_i,v_j)\in K$.
+\underline{As an example} we may take the following random walk on $\E$: let $d=\max_{v} \textrm{deg}(v)$ and 
+
+$$q(v,v')=\left\{
+\begin{array}{llllcccccccc}
+{1\over 2d} & \textrm{if }   (v,v')\in K,\\[12pt]
+1-{\textrm{deg}(v)\over 2d}  & \textrm{if }   v=v',\\[12pt]
+0 & \textrm{otherwise}.
+    \end{array}\right.$$
+
+Note that a random walk with matrix $\Q$ has uniform stationary distribution (since $\Q$ is symmetric).
+Often $\Q$ is called a \textbf{proposal distribution}.
+\medskip\par 
+\textbf{Metropolis algorithm} is the following modification of $\Q$. Consider $X$ with t.m.
+
+$$\PP(v,v')=\left\{
+\begin{array}{llccccc}
+\Q(v,v')\cdot\min\left(1,{\pi(v')\over \pi(v)}\right) & \textrm{if }  v\neq v'\\[12pt]
+1-\sum_{w\neq v} \Q(v,w)\cdot\min\left(1,{\pi(w)\over \pi(v)}\right)   & \textrm{if }   v=v',\\[12pt]
+0 & \textrm{otherwise}.
+    \end{array}\right.$$
+On lecture we have shown that $\pi$ is the stationary distribution of $X$.
+\medskip\par 
+It is very convenient to write it as an algorithm:
+     
+     
+ 
+\begin{algorithm}[H]
+\caption{The  Metropolis algorithm for sampling for a distribution  $\pi$ on $\E$ 
+using a symmetric regular matrix $\Q$ (1 step)} 
+\label{alg:metropolis}
+\begin{algorithmic}[1] 
+%\REQUIRE Sample size: $n$, number of stratas: $m$
+ 
+%\FOR{$k=1$ to $[n/m]$}
+\STATE assume that  $X_k=\e$
+\STATE generate $Z$ according to a distribution  $\Q(\e,\cdot)\equiv [\Q(\e,\e_1),\ldots,\Q(\e,\e_M)].$
+\STATE assume $Z=\e'$
+\STATE set   $\alpha=\min(1,\pi_{\e'}/\pi_\e)$ % \pl{ $\min(1,\pi_X,\pi_i)$?}
+\STATE generate $U\sim \mathcal{U}(0,1)$
+\STATE \textbf{if} $U\leq \alpha$ \textbf{then} $X_{k+1}=\e'$
+\STATE $\qquad \qquad $ \textbf{else}  $X_{k+1}=X_k$
+\RETURN $Y_{k+1}$.
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{enumerate}
+ \item Let $\E=\mathcal{S}_n$ be a set of all permutations of $n$ elements ('cards').
+ %Let $\sigma_{id}=(1,2,\ldots,n)$ be an identity permutation.
+ Consider the following proposal distribution 
+ $$\Q(\sigma,\sigma')=
+ \left\{ 
+ \begin{array}{llllllll}
+  {1\over 2} & \textrm{if } \sigma'=\sigma, \\[12pt] 
+  {1\over 2 {n\choose 2}} & \textrm{if } \sigma'\in\mathcal{N}(\sigma), \\[12pt] 
+  0  & \textrm{otherwise}, 
+ \end{array}
+\right.$$
+where $\mathcal{N}(\sigma)$ are all the permutations (\textsl{neighbours}) obtained from $\sigma$ by swapping two elements.
+
+\smallskip\par 
+Provide a Markov chain, Metropolis algorithm with above proposal distribution, for sampling 
+from target distribution:
+$$\pi(\sigma)={\theta^{f(\sigma)}\over z},$$
+where $Z=\sum_{\sigma} \theta^f(\sigma)$ is a normalization constant and $f(\sigma)$ is defined as follows:
+$$f(\sigma)=\sum_{k=1}^n k\cdot \sigma_k$$
+(For example, $f((3,5,4,1,2))=1\cdot 3 + 2\cdot 5+3\cdot 4 + 4\cdot 1 + 5\cdot 2 = 39$).
+  
+\item (\textbf{Graph coloring}). Let $G=(V,K)$ be a graph and $r\geq 2$ be an integer.
+A proper coloring of $G$ is an assignment of color $S=\{1,\ldots,r\}$ to vertices
+with the property that no two neighbours have the same color. Let $\Lambda$ be a set of such proper colorings,
+i.e.,
+$$\Lambda=\{\e: \e(v)\neq \e(w) \textrm{ if } (v,w)\in K\}. $$
+Let $\pi$ be a uniform distribution on $\Lambda$, i.e.,
+$$\pi(\e)=
+\left\{
+\begin{array}{llll}
+{1\over z} & \textrm{ if } \e\in\Lambda,\\[12pt]
+0 & \textrm{otherwise}.
+\end{array}
+\right.$$
+Provide a Metropolis algorithm for sampling from $\pi$.
+
+\item (\textbf{Ising model}). Let $\mathcal{G}=(\mathcal{V},\mathcal{K})$ be a graph with some graph with vertices $v_1,\ldots,v_n$. 
+By state (often called \textbf{configuration} in this context) we mean assigning values $+1$ or $-1$ to each vertex. In other words, $\e\in\E=\{-1,+1\}^\mathcal{V}$. For a given configuration we define energy function
+$$H(\e)=\sum_{(v,v')\in \mathcal{K}} \e(v)\e(v').$$
+One calls values $\pm 1$ \textsl{spins}. Provide a Metropolis algorithm for sampling
+from target distribution 
+$$\pi(\e)={1\over z} e^{-\beta H(\e)},$$
+where $z=\sum_{z\in\E}e^{-\beta H(\e)}$ is a normalization constant.
+Use the following proposal distribution:
+$$\Q(\e,\e')=
+\left\{
+\begin{array}{llll}
+{1\over n} & \textrm{if } d(\e',\e)=1,\\[12pt]
+0 & \textrm{otherwise},
+\end{array}
+\right.$$ 
+where $d(\e',\e)$ is a number of vertices where $\e$ and $\e'$ differ
+$$d(\e',\e)=\#\{v: \e'(v)\neq \e(v)\}.$$
+In other words: given $\e'$ we sample a candidate in Metropolis algorithm simply chosing a vertex $v$ uniformly at random (with probability $1/n$, we have $n$ vertices) and swapping its value $-1 \leftrightarrow +1$.
+\smallskip\par 
+Note: We have two graphs here. Graph $\mathcal{G}$ used to define the target distribution $\pi$. 
+The Markov chain will be a chain on configurations $\E=\{-1,+1\}^\mathcal{V}$. Here there is an edge between 
+$\e$ and $\e'$ defined by $\Q$: the states are neighbours if they differ exactly at one vertex.
+
+
+
+ 
+\end{enumerate}
+
+\newpage
+In a case when matrix $\Q$ is not symmetric, but it has the property that $\Q(\e,\e')>0 \iff \Q(\e',\e)>0$, we may use Metropolis-Hasting algorithm:
+\begin{algorithm}[H]
+\caption{The  Metropolis-Hasting algorithm for sampling for a distribution  $\pi$ on $\E$
+using a  regular matrix $\Q$ (1 step)}
+\label{alg:metropolis-hasting}
+\begin{algorithmic}[1]
+%\REQUIRE Sample size: $n$, number of stratas: $m$
+
+%\FOR{$k=1$ to $[n/m]$}
+\STATE assume that  $X_k=\e$
+\STATE generate $Z$ according to a distribution  $\Q(\e,\cdot)\equiv [\Q(\e,\e_1),\ldots,\Q(\e,\e_M)].$
+\STATE assume $Z=\e'$
+\STATE set   $$\alpha=\min\left(1,{\pi(\e')\Q(\e',\e) \over \pi(\e)\Q(\e,\e')}\right)$$ % \pl{ $\min(1,\pi_X,\pi_i)$?}
+\label{alg:mh_line_alpha}
+\STATE generate $U\sim \mathcal{U}(0,1)$
+\STATE \textbf{if} $U\leq \alpha$ \textbf{then} $X_{k+1}=\e'$
+\STATE $\qquad \qquad $ \textbf{else}  $X_{k+1}=X_k$
+\RETURN $Y_{k+1}$.
+\end{algorithmic}
+\end{algorithm}
+
+Note that Algorithm \ref{alg:metropolis-hasting} differs from Algorithm \ref{alg:metropolis} only
+in  computating $\alpha$ in line \ref{alg:mh_line_alpha}.
+
+\begin{enumerate}[resume]
+  \item  Modify line \ref{alg:mh_line_alpha} of Algorithm \ref{alg:metropolis-hasting}, set
+  $$\alpha={\pi(\e')\Q(\e',\e) \over \pi(\e')\Q(\e',\e) +\pi(\e)\Q(\e,\e') }.$$
+  Show that the resulting algorithm (\textsl{Barker's algorithm})  yields a Markov chain with stationary distribution $\pi$.
+
+\item Let $G=(V,K)$ be a connected graph.
+Provide a Metropolis(-Hasting) algorithm for sampling from distribution ($z$ is a normalization constant)
+$$\pi(v)={1\over z}{1\over (\rm{deg}(v))^2}.$$
+Consider two different proposal distributions represented by $\Q_1$ and $\Q_2$ respectively.
+\begin{enumerate}
+ \item[a)]
+ $$\Q_1(v,v')=
+\left\{
+\begin{array}{llll}
+{1\over 2m} & \textrm{if } (v,v')\in K,\\[14pt]
+1-{\textrm{deg}(v)\over 2m}  & \textrm{if } v=v',\\
+0 & \textrm{otherwise},
+\end{array}
+\right.$$
+where $m= \max_{w} \textrm{deg}(w)$.
+ \item[b)]
+$$\Q_2(v,v')=
+\left\{
+\begin{array}{llll}
+{1\over 2\textrm{deg}(v)} & \textrm{if } (v,v')\in K,\\[14pt]
+{1\over 2}  & \textrm{if } v=v',\\[14pt]
+0 & \textrm{otherwise}.
+\end{array}
+\right.$$
+\end{enumerate}
+
+
+
+
+
+\end{enumerate}
+
+\end{document}

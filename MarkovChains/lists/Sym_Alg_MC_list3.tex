@@ -1,0 +1,194 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{twr}[deff]{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.0cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{setup/packages2}
+\input{setup/macros2}
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &     2024/25   \\ \\
+\multicolumn{3}{c}{   List nr 3} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}} \bigskip\bigskip
+\par \bigskip
+
+%\setstretch{1}
+ 
+  
+
+\begin{enumerate}
+\item A lonely chess king is standing on a standard $8\times  8$   board, who moves randomly into
+one of the closest squares (the distribution is uniform).
+\begin{itemize}
+ \item  Is the Markov chain related to the random walk above aperiodic and/or irreducible?
+ \item Find the stationary distribution of this chain.
+\end{itemize}
+
+
+\item 
+
+
+Let $(X_0, X_1,\ldots)$ be a reversible Markov chain on a state space $\E$, with a transition matrix  $\PP$ and a reversible distribution $\pi$.
+ Show that if the chain started with an initial
+distribution $\mu=\pi$,  then for every  $n\in\mathbb{N}$  and every 
+$\e_{i_0},\e_{i_1},\ldots,\e_{i_n}\in \E$  we have
+$$P(X_0=\e_{i_0}, X_1=\e_{i_1}, \ldots, X_n=\e_{i_n}) = P(X_0=\e_{i_n}, X_1=\e_{i_{n-1}}, \ldots, X_n=\e_{i_0}).$$
+
+\item 
+
+Prove that if a transition matrix $\PP$ is \textsl{ doubly stochastic}
+(i.e., the sum of elements in
+each columns is also equal to 1), then the stationary distribution of the chain  is uniform.
+
+
+\item 
+Let  $\PP$ be the transition matrix of an ergodic chain  $X$ with the stationary distribution $\pi$. 
+The transition matrix of the time-reversed chain $\tilde{X}$  s defined as  $\tilde{\PP}(\e_2,\e_1)={\pi(\e_1)\over \pi(\e_2)} \PP(\e_1,\e_2)$
+(a chain is reversible  $\PP=\tilde{\PP}$). Show that $\pi$ is also a stationary distribution of   $\tilde{X}$.
+
+
+
+\item 
+
+Let $\PP$ be the transition matrix of an ergodic chain $X$ with the stationary distribution $\pi$.
+ Define:  $\mathbf{M}:=\PP\cdot \tilde{\PP}$. Show that
+\begin{itemize}
+\item $\mathbf{M}$ is a stochastic matrix.
+ \item $\pi$ is a stationary distribution of a chain with the transition matrix $\mathbf{M}$.  
+ Is this chain reversible?
+
+\end{itemize}
+
+
+\item 
+(Birth and death chain).
+Let $X$ be  a Markov chain on a state space  $\E=\{0,1,\ldots,N\}$ with the transition matrix
+$$\PP(i,j)=\left\{
+\begin{array}{clll}
+p_i & \textrm{if } j=i+1, \\[6pt]
+q_i & \textrm{if } j=i-1, \\[6pt]
+r_i & \textrm{if } j=i,
+\end{array}
+\right.
+$$
+where  $p_0>0, q_0=0, p_N=0, q_N>0$ and for all $i\in\{1,\ldots,N-1\}$: $p_i>0, q_i>0, p_i+q_i+r_i=1$.
+Show that this chain is reversible. 
+  
+  
+  \item In List nr 2, Exercise nr 16, independent chains $X=\{X\}_{n\geq 0}$ and $Y=\{Y\}_{n\geq 0}$  with transition matrix
+$$\PP=\left[
+\begin{array}{ccccccccc}
+1-\alpha & \alpha \\
+\beta & 1-\beta \\
+\end{array}\right]$$
+were considered. 
+Assume that  $X_0=1, Y_0=2$ and they both move according to $\PP$, however this time 
+they may be \textsl{dependent}. The task is, assuming additionally that $\alpha+\beta<1$,
+to construct some (dependent) coupling $(X_k, Y_k)$ of the chains, so that the first time the chains meet 
+$$T'=\argmin_k\{X_k=Y_k\}$$
+is ``better'' than $T$ resulting from independent chains (i.e., $T$ from List 2, Exercise 16),
+here better means $ET'<ET$ (compute those means). 
+\begin{flushright}
+ \tiny{\texttt{Hint: use the same update function for both chains}}
+\end{flushright}
+
+\item Continuing previous exercise: using your coupling and independent coupling (List 2, Exercise 16) provide upper bounds 
+on $d_{TV}(\mu\PP^k,\pi)$ in both cases
+\begin{enumerate}
+ \item using Markov inequality,
+ \item Chebyshev inequality.
+\end{enumerate}
+
+
+
+
+
+
+ 
+
+\end{enumerate}
+ 
+
+
+
+
+\end{document}

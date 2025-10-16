@@ -1,0 +1,173 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pstricks}
+ \usepackage{amsthm}
+ 
+%\usepackage[nohead]{geometry}
+%\usepackage{amsmath,amsthm,amssymb,euler}
+
+% \newtheorem{deff}{Definicja}[subsection]
+% \newtheorem{twr}[deff]{Twierdzenie}
+% \newtheorem{lem}{Lemat}
+% \newtheorem{uwaga}[deff]{Uwaga}
+% \newtheorem{alg}[deff]{Algorytm}
+
+
+\newtheorem{deff}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{uwaga}[deff]{Remark}
+\newtheorem{alg}[deff]{Algorithm}
+
+%\newcommand{\e}[0]{\mathbf{e}}
+%\newcommand{\s}[0]{\mathbf{s}}
+%\newcommand{\PP}[0]{\mathbf{P}}
+%\newcommand{\E}[0]{\mathbb{E}}
+ 
+\renewcommand\theequation{\thesection.\arabic{equation}}
+%\setlength{\textwidth}{16cm}
+%\setlength{\oddsidemargin}{3cm}
+%\setlength{\evensidemargin}{3cm}
+%\setlength{\hoffset}{-1in} %
+
+
+\addtolength{\voffset}{-2.0cm}
+\addtolength{\hoffset}{-1.0cm}
+\addtolength{\textwidth}{2.2cm}
+\addtolength{\textheight}{3.0cm}
+
+
+
+\setlength{\fboxrule}{11cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,LO]{\tiny {\tt\jobname    }}
+\fancyfoot[RE,RO]{\tiny {\tt \leftmark     }}
+%\rightmark - \leftmark --
+\fancyfoot[c]{\thepage   }
+
+\newcount\cnt
+\def\nn {{
+{\message{-\the\cnt-}}\par
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nx {{
+{\message{-\the\nu-}}\hskip 10truept
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\ny {{
+{\message{-\the\cnt-}}\par\noindent
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+\def\nz {{\hskip -2truept
+{\message{-\the\cnt-}}
+\bf \the\cnt .\   \global\advance\cnt by 1}}
+
+\def\bp {\bigskip\par}
+
+\usepackage{setspace}
+
+\parindent 0pt
+
+\everymath{\displaystyle}
+
+\input{setup/packages2}
+\input{setup/macros2}
+\begin{document}
+ 
+\noindent
+ {
+\setlength\fboxsep{4pt}%
+ \setlength\fboxrule{2pt}%
+ \fbox{%
+  \begin{tabular}{lcr}
+\multicolumn{2}{l}{\bf  Simulations and algorithmic applications of Markov chains} &     2024/25  \\ \\
+\multicolumn{3}{c}{   List nr 4} \\
+\multicolumn{2}{l}{ Paweł Lorek} &  \\  
+ \end{tabular}%
+}} \bigskip\bigskip
+\par \bigskip
+
+%\setstretch{1} 
+
+\begin{enumerate}
+\item 
+  (Simple random walk). Let $X$ be a Markov chain on a state space $\E=\{0,1,\ldots,N\}$ with the following transition matrix
+$$\PP=\left[
+\begin{array}{ccccccccc}
+r_0 & p_0 & 0 & 0 & 0  & 0 &\ldots & 0 \\[5pt]
+q_1 & r_1 & p_1 & 0 & 0 & 0 &\ldots & 0 \\[5pt]
+0 & q_2 & r_2 & p_2 & 0 & 0 &\ldots & 0\\[5pt]
+  &      & \ddots& \ddots& \ddots\\[5pt]
+0 & 0 & 0 & q_i & r_i & p_i &0 \ldots &0 \\[5pt]
+ &  & &      & \ddots& \ddots& \ddots\\[5pt]
+ 0&\ldots &  & &      & q_{N-1} & r_{N-1} & p_{N-1} \\[5pt]
+ 0&\ldots &  & &      & 0 & q_N & r_N \\[5pt]
+    \end{array}\right],$$
+where $q_0=p_N=0$ and for all $i\in\{1,\ldots,N-1\}$: $p_i>0, q_i>0, p_i+q_i+r_i=1$. Find the stationary distribution of this chain (on earlier list we had a special case of this chain with $p_0=q_N=1$).
+
+
+  
+  \item  (Simple random walk on a circle). Let $X$ be a Markov chain on a state space $\E=\{0,1,\ldots,N\}$ with the following transition matrix
+$$\PP=\left[
+\begin{array}{ccccccccc}
+r_0 & p_0 & 0 & 0 & 0  & 0 &\ldots & q_0 \\[5pt]
+q_1 & r_1 & p_1 & 0 & 0 & 0 &\ldots & 0 \\[5pt]
+0 & q_2 & r_2 & p_2 & 0 & 0 &\ldots & 0\\[5pt]
+  &      & \ddots& \ddots& \ddots\\[5pt]
+0 & 0 & 0 & q_i & r_i & p_i &0 \ldots &0 \\[5pt]
+ &  & &      & \ddots& \ddots& \ddots\\[5pt]
+ 0&\ldots &  & &      & q_{N-1} & r_{N-1} & p_{N-1} \\[5pt]
+ p_N&\ldots &  & &      & 0 & q_N & r_N \\[5pt]
+    \end{array}\right],$$
+where for all $i\in\{0,\ldots,N\}$: $p_i>0, q_i>0, p_i+q_i+r_i=1$. In other words, this is a simple random walk on a circle - when we are in state $i$ we can go to $i-1. i, i+1$ and we have that $N+1 \equiv 0$ oraz $0-1\equiv N.$
+\begin{itemize}
+     \item What conditions have to be fullfiled for parameters $p_i,q_i, i=0,\ldots,N$, so that chain $X$ is reversible?
+     \item In cases where $X$ is reversible find the stationary distribution.
+\end{itemize}
+
+ \item 
+  (Generating random matrix with set sum in each row and column). Below you can see an example of $4 \times 4$ matrix with set sum in each row and each column.
+\begin{figure}[H]
+ $$
+ \begin{array}{|r|rrrr|}\hline
+  &\textbf{110} & \textbf{274} & \textbf{84} &\textbf{118} \\\hline
+\textbf{210} & 67 & 112 & 26  & 5 \\
+\textbf{93} & 19 & 52 & 18 &  4\\
+\textbf{217} & 21 & 88 & 23 & 85 \\
+\textbf{66} & 3 & 22 & 17  & 24\\\hline
+
+ \end{array}
+$$
+\end{figure}
+Let $\E$ be a set of $4\times 4$ matrices with natural elements in which each row and each column sums up to the numbers given in the example above. Find a method to generate a uniform distribution on $\E$ (find a Markov chain with a stationary distribution being uniform on $\E$).
+
+\item Consider $n$ books labeled from $1$ to $n.$ Books are placed on a shelf in one row, in positions from $1$ (first one on the left) to $n.$ In each move one chooses a position in the shelf, position 
+$i$ is chosen with probability $p_i,$ $0<p_i<1, i=1,\ldots,n, \sum_{i=1}^n p_i=1.$ 
+If the  position 1 is chosen, nothing happens. Otherwise, if you have chosen a position $i>1$, then
+the book on position $i$ is swapped with the book on position $i-1$.
+Denote $\e=(e_1,\ldots,e_n),$ where $e_i$ is the number of the book on position $i$. 
+The transitions of described chain are following:
+$$\PP((e_1,e_2,\ldots,e_n),(e_1,e_2,\ldots,e_n))=p_1,$$
+$$\PP((e_1,e_2,\ldots,e_{i-2},e_{i-1},e_i, e_{i+1},\ldots, e_n),(e_1,e_2,\ldots,e_{i-2},e_i,e_{i-1} e_{i+1},\ldots, e_n))=p_i.$$
+Show that 
+$$\pi(\e)={1\over C} \prod_{r=1}^n p_{e_i}^{-i},$$
+is a stationary distribution of this chain, where $C>0$ is a normalizing constant.
+
+\item 
+(Coupon collector problem) At one step we draw a single coupon out of $n$ coupons, independently from other drawings and uniformly at random
+(i.e., each coupon has probability $1/n$ of appearing). Let $T$ be the first moment when
+each coupon was drawn at least once.
+Show that
+$$P(T>k) \leq e^{-c} \quad \textrm{for} \quad k=n\log n+cn.$$
+ 
+\end{enumerate}
+
+
+
+
+\end{document}
