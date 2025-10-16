@@ -1,0 +1,170 @@
+%  \begin{figure}[H]
+% \begin{center}
+% 
+% \begin{tikzpicture}
+% \begin{axis}[
+%     axis lines = middle,
+%     xlabel = {$x$},
+%     ylabel = {$y$},
+%     xmin=0, xmax=5.5,
+%     ymin=0, ymax=24]
+%  
+% % Plot 1
+% \addplot [name path = A,
+%     -latex,
+%     domain = 0:4.5,
+%     samples = 1000] {x^2} 
+%     node [very near end, right] {$y=x^2$};
+%  
+% % Plot 2
+% \addplot [name path = B,
+%     -latex,
+%     domain = 0:4.5] {x} 
+%     node [pos=1, above] {$y=x$};
+%  
+% % Fill area between paths
+% \addplot [teal!30] fill between [of = A and B, soft clip={domain=2:4}];
+%  
+% \end{axis}
+% \end{tikzpicture}
+%   
+% \caption{ddddd.} 
+% \end{center}
+% \end{figure}
+% 
+% \par 
+% 
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\begin{axis}[
+  %  grid=both,
+   % grid style={line width=.1pt, draw=gray!5},
+   % major grid style={line width=.2pt,draw=gray!20},
+    axis lines = middle,
+    legend cell align={left},
+        xtick={0}, %0, 2, 4},
+    %ytick={-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6},
+    %ytick={0.2,0.4,0.6,0.8,1.0},
+    %xtick={0.2,0.4,0.6,0.8,1.0},
+    %ytick={-0,1.1},
+    ytick={0},
+    %xlabel = $x$,
+    %ylabel = {$y$},
+    %legend style={at={(0.85,1)},anchor=north west},
+    xmin=-0.4,
+    xmax=4.15,
+    ymin=-4.05,
+    ymax=46.05,
+    width=1.2*\textwidth,
+    height=0.8*\textwidth,
+    restrict y to domain=0:46
+]
+  
+  
+   \addplot[name path=F,black,domain={0:4},samples=100] {(x+0.1)^2*(x-2)^2*(abs(x-4.1))^3+2};
+    
+%
+\draw[draw=gray, line width=0.2mm] (axis cs: 0.0,44.5) -- node[left]{} (axis cs:4.1,44.5);
+\draw[draw=black, line width=0.2mm] (axis cs: -0.1,44.5) -- node[left]{} (axis cs:0.1,44.5);
+
+   \draw(axis cs:-0.4,44)  node[right]{{{\footnotesize $\lambda_{\max}$}}};
+
+
+
+  \path[name path=xaxis,,samples=100] (0,0) -- (1,0);
+%   
+% 
+     %!!! TO PRZESTALO DZIALAC
+     %\addplot[gray!30] fill between [of=F and xaxis,soft clip={domain=0:1}];
+%         
+    %\draw[draw=gray, line width=0.2mm] (axis cs: 0.0,1) -- node[left]{} (axis cs:1,1);
+  %\draw[draw=black!80, line width=0.2mm] (axis cs: 1,0) -- node[left]{} (axis cs:1,1);
+%  
+%  
+     \addplot[black,domain={0:1},samples=100] {0.0*x};
+\tikzset{cross/.style={cross out, draw=black, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt},
+cross/.default={1pt}}
+
+     \fill (axis cs:0.1,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 0.1,0) node[cross=4pt] {};
+ %\draw(axis cs:3,5)  node[right]{{{\footnotesize $\mathbb{x}$}}};
+
+     \fill (axis cs:0.2,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 0.2,0) node[cross=4pt] {};
+
+     \fill (axis cs:0.31,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:0.42,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 0.42,0) node[cross=4pt] {};
+     \fill (axis cs:0.5,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:0.61,0.0)  circle[radius=2.0pt];
+
+     \fill (axis cs:0.84,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:0.96,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:1.11,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:1.2,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 1.2,0) node[cross=4pt] {};
+     \fill (axis cs:1.38,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:1.51,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:1.6,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 1.6,0) node[cross=4pt] {};
+
+     \fill (axis cs:1.72,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 1.72,0) node[cross=4pt] {};
+      \fill (axis cs:1.86,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 1.86,0) node[cross=4pt] {};
+      \fill (axis cs:1.96,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 1.96,0) node[cross=4pt] {};
+     \fill (axis cs:2.06,0.0)  circle[radius=2.0pt];
+      \draw (axis cs: 2.06,0) node[cross=4pt] {};
+     \fill (axis cs:2.2,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:2.3,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 2.3,0) node[cross=4pt] {};
+     \fill (axis cs:2.41,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 2.41,0) node[cross=4pt] {};
+     \fill (axis cs:2.51,0.0)  circle[radius=2.0pt];
+    \fill (axis cs:2.62,0.0)  circle[radius=2.0pt];
+    \draw (axis cs: 2.62,0) node[cross=4pt] {};
+     \fill (axis cs:2.74,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:2.82,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 2.82,0) node[cross=4pt] {};
+     \fill (axis cs:2.93,0.0)  circle[radius=2.0pt];
+
+
+          \fill (axis cs:3.07,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:3.21,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 3.21,0) node[cross=4pt] {};
+     \fill (axis cs:3.32,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:3.45,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 3.45,0) node[cross=4pt] {};
+     \fill (axis cs:3.55,0.0)  circle[radius=2.0pt];
+    \fill (axis cs:3.65,0.0)  circle[radius=2.0pt];
+    \draw (axis cs: 3.65,0) node[cross=4pt] {};
+     \fill (axis cs:3.76,0.0)  circle[radius=2.0pt];
+     \fill (axis cs:3.82,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 3.82,0) node[cross=4pt] {};
+     \fill (axis cs:3.96,0.0)  circle[radius=2.0pt];
+     \draw (axis cs: 3.96,0) node[cross=4pt] {};
+
+
+
+\draw[draw=black, line width=0.3mm] (axis cs: 4.0,-1.1) -- node[left]{} (axis cs:4.0,1.1);
+
+\draw(axis cs:4,-3)  node{{{\footnotesize $t_{\max}$}}};
+
+\draw(axis cs:3.6,10)  node{{{\footnotesize $\lambda(t)$}}};
+
+\end{axis}
+ 
+\end{tikzpicture}
+\caption{Example:
+Sample function $\lambda(t)$ for $t \in (0, t_{\max})$ with $\lambda_{\max} = \max_{t \in (0, t_{\max})} \lambda(t)$ depicted.
+Bullets $\bullet$ represent the arrival times of a homogeneous Poisson process $(N_{\rm h}(t))$ with parameter $\lambda_{\max}$.
+Each arrival time $A_i$ is crossed out with probability $1 - \lambda(A_i)/\lambda_{\max}$ (and thus
+kept with probability $\lambda(A_i)/\lambda_{\max}$). The remaining points constitute
+the arrival times of a non-homogeneous Poisson process $(N_{\rm nh}(t))$ with intensity  $\lambda(t)$.}
+\label{fig:non-hom_Poisson}
+\end{center}
+\end{figure}
+

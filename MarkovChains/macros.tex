@@ -1,0 +1,168 @@
+
+
+
+\usepackage{algorithm}
+
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{comment}
+\usepackage{booktabs}
+
+
+ \usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[polish]{babel}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{patterns}
+%\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows.meta,babel}
+\usetikzlibrary{shapes.misc}
+
+\usepackage{pgfplots}
+%\pgfplotsset{compat=1.7}
+\pgfplotsset{compat=1.16}
+%\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+
+\usepackage{subfig}
+
+\usepackage{etoolbox}
+
+
+% 2. Configuration Commands
+% ============================
+% Code listings (for \begin{lstlisting}...\end{lstlisting})
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  frame=none,
+  numbers=none,
+  breaklines=true,
+}
+%
+% \renewcommand{\lstlistingname}{Python Listing} % Listing -> Algorithm
+% \lstset{basicstyle=\fontsize{8}{12}\selectfont\ttfamily}
+% \lstset{language=Python}
+%
+% \captionsetup[figure]{font=small} % Changes font size in figure captions
+%
+% \captionsetup[algorithm]{font=normal} % Changes font size in algorithm captions
+% \AtBeginEnvironment{algorithmic}{\normalsize} % Changes font size inside algorithm body
+%
+
+
+% --- Bold (\bf) Commands ---
+
+
+\newcommand{\bfM}{\mathbf{M}}
+\newcommand{\bfU}{\mbox{\boldmath $U$}}
+\newcommand{\bfu}{\mbox{\boldmath$u$}}
+\newcommand{\bfv}{\mathbf{v}}
+\newcommand{\bfw}{\mathbf{w}}
+\newcommand{\bfx}{\mathbf{x}}
+%\newcommand{\e}{\mathbf{x}}
+\newcommand{\done}{\textbf{\textcolor{red}{DONE }}}
+\newcommand{\bfy}{\mbox{\boldmath$y$}}
+\newcommand{\bfz}{\mathbf{z}}
+\newcommand{\bfg}{\mbox{\boldmath$g$}}
+\newcommand{\bfh}{\mbox{\boldmath$h$}}
+\newcommand{\bfb}{\mbox{\boldmath$b$}}
+\newcommand{\bfp}{\mathbf{p}}
+\newcommand{\bfq}{\mathbf{q}}
+\newcommand{\bfJ}{\mbox{\boldmath $J$}}
+\newcommand{\bfP}{\mathbf{P}}
+%\newcommand{\bfT}{\mbox{\boldmath $T$}}
+\newcommand{\bfT}{\vec{T}}
+\newcommand{\bfL}{\mathbf{L}}
+\newcommand{\bfm}{\mbox{\boldmath$m$}}
+
+\newcommand{\bfSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bfsigma}{\mbox{\boldmath $\sigma$}}
+\newcommand{\bfmu}{\mbox{\boldmath $\mu$}}
+\newcommand{\bfzero}{{\bf 0}}
+
+
+\newcommand{\bfa}{\boldsymbol{a}}
+\newcommand{\bfA}{\mathbf{A}}
+\newcommand{\bfB}{\mathbf{B}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\newcommand{\bfV}{\mbox{\boldmath $V$}}
+\newcommand{\bfC}{\mathbf{C}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bfS}{\mathbf{S}}
+\newcommand{\bfD}{\mathbf{D}}
+\newcommand{\bff}{\mathbf{f}}
+\newcommand{\bfF}{\mathbf{F}}
+\newcommand{\bfI}{\mathbf{I}}
+\newcommand{\bfe}{\mathbf{e}}
+\newcommand{\bfk}{\mbox{\boldmath$k$}}
+\newcommand{\bfn}{\mbox{\boldmath$n$}}
+\newcommand{\bfR}{\mathbf{R}}
+\newcommand{\bfQ}{\mathbf{Q}}
+\newcommand{\bfG}{\mbox{\boldmath $G$}}
+
+\newcommand{\bfPi}{\mbox{\boldmath $\Pi$}}
+\newcommand{\bfPhi}{\mbox{\boldmath $\Phi$}}
+\newcommand{\bfPsi}{\mbox{\boldmath $\Psi$}}
+\newcommand{\bfLambda}{\mbox{\boldmath $\Lambda$}}
+\newcommand{\bflambda}{\mbox{\boldmath $\lambda$}}
+
+\newcommand{\bfgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bfalpha}{\mbox{\boldmath $\alpha$}}
+\newcommand{\bfeta}{\mbox{\boldmath $\eta$}}
+\newcommand{\bftheta}{\boldsymbol{\theta}}
+\newcommand{\bfpi}{\mbox{\boldmath$\pi$}}
+\newcommand{\bfnu}{\mbox{\boldmath $\nu$}}
+
+\newcommand{\bft}{\mbox{\boldmath$t$}}
+
+
+% --- Caligraphic (\cal) Commands ---
+
+\newcommand{\calA}{{\cal A}}
+\newcommand{\calE}{{\cal E}}
+\newcommand{\calL}{{\cal L}}
+\newcommand{\calM}{{\cal M}}
+\newcommand{\calN}{{\cal N}}
+\newcommand{\calF}{{\cal F}}
+\newcommand{\calG}{{\cal G}}
+\newcommand{\calD}{{\cal D}}
+\newcommand{\calB}{{\cal B}}
+\newcommand{\calH}{{\cal H}}
+\newcommand{\calI}{{\cal I}}
+\newcommand{\calP}{{\cal P}}
+\newcommand{\calR}{{\cal R}}
+\newcommand{\calQ}{{\cal Q}}
+\newcommand{\calS}{{\cal S}}
+\newcommand{\calT}{{\cal T}}
+\newcommand{\calU}{{\cal U}}
+\newcommand{\calC}{{\cal C}}
+\newcommand{\calK}{{\cal K}}
+\newcommand{\calX}{{\cal X}}
+\newcommand{\calV}{{\cal V}}
+\newcommand{\cals}{{\cal S}}
+
+\newcommand{\ind}{\boldsymbol{1}}
+\newcommand{\Exp}{\mathbb{E}}
+\newcommand{\Var}{\mathbb{V}ar}
+
+
+\newcommand{\eqdistr}{\stackrel{\cal D}{=}}
+\newcommand{\convdistr}{\stackrel{\cal D}{\rightarrow}}
+\newcommand{\convrel}{\stackrel{\cal D}{\sim}}
+\newcommand{\convas}{\stackrel{\rm a.s.}{\rightarrow}}
+\newcommand{\convprob}{\stackrel{\Pr}{\rightarrow}}

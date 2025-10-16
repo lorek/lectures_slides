@@ -1,0 +1,267 @@
+% This text is proprietary.
+% It's a part of presentation made by myself.
+% It may not used commercial.
+% The noncommercial use such as private and study is free
+% Sep. 2005 
+% Author: Sascha Frank 
+% University Freiburg 
+% www.informatik.uni-freiburg.de/~frank/
+
+
+\documentclass[aspectratio=169]{beamer}
+
+
+%%% HANDOUT START
+%  \documentclass[11pt,handout,aspectratio=169]{beamer}
+%  \usepackage{pgfpages}
+%  \pgfpagesuselayout{6 on 1}[a4paper]
+%  \setbeamertemplate{footline}{% set footline options
+%   $\qquad\qquad$\insertpagenumber   
+%   }
+
+ 
+%%% HANDOUT END
+
+\usefonttheme{professionalfonts}
+ 
+%\setbeamertemplate{page number in head/foot}[totalframenumber]
+%\beamertemplatenavigationsymbolsempty
+
+%\setbeamerfont{page number in head/foot}{size=\footnotesize}
+
+
+%pdfnup --a4paper --keepinfo --nup 1x3 --frame true   --scale 0.92 --no-landscape --outfile handout.pdf slides.pdf
+
+
+\setbeamercovered{transparent=10}
+
+
+\usepackage{multirow}
+% \usepackage{pgfpages}
+% \mode<handout>{\setbeamercolor{background canvas}{bg=black!5}}
+% \pgfpagesuselayout{4 on 1}[letterpaper,border shrink=2mm]
+
+%\documentclass[handout]{beamer}
+% \setbeamertemplate{bibliography entry title}{}
+% \setbeamertemplate{bibliography entry location}{}
+% \setbeamertemplate{bibliography entry note}{}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\newcommand{\Prob}{{\rm I\hspace{-0.8mm}P}}
+
+\newcommand{\p}[0]{\mathbf{p}}
+\newcommand{\q}[0]{\mathbf{q}}
+
+\newcommand{\e}[0]{\textbf{e}}
+\newcommand{\PP}[0]{\mathbf{P}}
+\newcommand{\II}[0]{\textbf{I}}
+\newcommand{\Q}[0]{\mathbf{Q}}
+\newcommand{\E}[0]{\mathbb{E}}
+\newcommand{\X}[0]{\textbf{X}}
+\newcommand{\Z}[0]{\textbf{Z}}
+\newcommand{\s}[0]{\mathbf{s}}
+\newcommand{\C}[0]{\textbf{C}}
+\newcommand{\es}[0]{\mathbf{s}}
+\newcommand{\trev}[0]{\overleftarrow}
+\definecolor{mygray}{gray}{0.6}
+\newcommand{\diag}{\mathbf{diag}}
+\newcommand{\iii}[0]{\mathbf{i}}
+
+%\dual to oznacznie dualnosci, oryginalnie *
+%\newcommand{\dual}[0]{\circledast}
+\newcommand{\dual}[0]{*}
+
+%\monD to oznacznie tej drugiej monotonicznosci, czyli np. ^\monD-Mobius monotonicity
+%\newcommand{\monD}[0]{\lozenge}
+\newcommand{\monD}[0]{\downarrow}
+\newcommand{\monU}[0]{\uparrow}
+
+\usepackage{cancel} 
+
+\usepackage{dsfont}
+ 
+\newcommand{\indic}[0]{\mathds{1}}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{soul} 
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usetikzlibrary{arrows}
+
+
+
+
+\setbeamertemplate{theorems}[numbered]
+
+% Add support for \subsubsectionpage
+%\def\subsubsectionname{\translate{Subsubsection}}
+%\def\insertsubsubsectionnumber{\arabic{subsubsection}}
+% \setbeamertemplate{subsubsection page}
+% {
+%   \begin{centering}
+%     {\usebeamerfont{subsubsection name}\usebeamercolor[fg]{subsubsection name}\subsubsectionname~\insertsubsubsectionnumber}
+%     \vskip1em\par
+% %     \begin{beamercolorbox}[sep=4pt,center]{d part title}
+% %       \usebeamerfont{subsubsection title}\insertsubsubsection\par
+% %     \end{beamercolorbox}
+%   \end{centering}
+% }
+% \def\subsubsectionpage{\usebeamertemplate*{subsubsection page}}
+
+
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
+\AtBeginSubsubsection{\frame{\subsubsectionpage}}
+ 
+\usepackage{tikz}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+ 
+
+ % FROM BOOK:
+ \input{macros}
+
+\begin{document}
+ 
+
+\title{Introduction to simulations and Monte Carlo methods:
+\\ The Theory of Generators}
+\author{Pawe{\l} Lorek  \\ \textsl{Mathematical Institute, University of Wroc{\l}aw, Poland} \\
+\ \\
+}
+
+%\author{AMS Special Session on Transient Probabilities of Random Processes, Duality Theory and Gambler’s Ruin Probabilities}
+
+\date{\today}
+
+\frame{\titlepage} 
+
+
+\begin{frame}{Sequence of random numbers — formal definitions}
+\textbf{On $[0,1)$}
+A sequence $(U_j)_{j\ge 1}$ is a \textsl{sequence of random numbers} on $[0,1)$ if:
+\begin{enumerate}
+  \item[i)] Each $U_j$ has the uniform distribution $\calU[0,1)$, i.e.
+  \[
+    \Prob(U_j \le t) =
+    \begin{cases}
+      0 & t<0,\\
+      t & 0\le t<1,\\
+      1 & t\ge 1,
+    \end{cases}
+  \]
+  \item[ii)] $U_1,U_2,\ldots$ are i.i.d., i.e., for $n\ge 1$,
+  \[
+    \Prob(U_1\le t_1,\ldots,U_n\le t_n)=t_1\cdots t_n .
+  \]
+  $$\bfP,\bfmu, \bfpi$$
+\end{enumerate}
+
+
+\smallskip
+\textbf{Random bits}
+$(B_j)_{j\ge 1}$ is a sequence of random bits if
+$\Prob(B_j=0)=\Prob(B_j=1)=\tfrac12$ and $B_1,B_2,\ldots$ are i.i.d., so for $n\ge 1$,
+\[
+  \Prob(B_1=b_1,\ldots,B_n=b_n)=2^{-n}.
+\]
+
+\end{frame}
+
+\begin{frame}{Discrete alphabet $\{0,1,\ldots,M-1\}$}
+\textbf{block}{Uniform on a finite set}
+A sequence $(Y_j)_{j\ge 1}$ is a sequence of random numbers on
+$\{0,1,\ldots,M-1\}$ if for each $j$:
+\begin{enumerate}
+  \item[i)] $\Prob(Y_j=i)=\tfrac1M$ for $i=0,\ldots,M-1$,
+  \item[ii)] $Y_1,Y_2,\ldots$ are i.i.d., hence for $n\ge 1$,
+  \[
+    \Prob(Y_1=y_1,\ldots,Y_n=y_n)=M^{-n}.
+  \]
+\end{enumerate}
+
+
+\smallskip
+\textbf{Two practical remarks}
+\begin{itemize}
+  \item Computers output grid values in $\{0,\tfrac1M,\ldots,\tfrac{M-1}{M}\}$ (often $M=2^k$).
+  \item Any subsequence chosen by increasing indices $n_1<n_2<\cdots$ remains i.i.d.\ with the same distribution.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{Discrete-time Markov chain.}
+Let $(X_n)_{n\ge 0}$ be a stochastic process on a countable state space $S$.
+It is a \emph{Markov chain} with transition matrix $\bfP=(p_{ij})_{i,j\in S}$ if
+\[
+\Pr(X_{n+1}=j \mid X_n=i, X_{n-1},\ldots,X_0) \;=\; p_{ij}, \quad \sum_{j\in S} p_{ij}=1.
+\]
+The \emph{initial distribution} is $\bfmu=(\mu_i)_{i\in S}$ with $\mu_i=\Pr(X_0=i)$.
+Then the distribution of $X_n$ is $\bfmu \bfP^n$.
+\end{frame}
+
+\begin{frame}{n-step transitions and Chapman--Kolmogorov.}
+Define the $n$-step matrix $\bfP^{(n)}$ by $p^{(n)}_{ij}=\Pr(X_n=j\mid X_0=i)$.
+The Chapman--Kolmogorov equations state
+\[
+\bfP^{(n+m)} \;=\; \bfP^{(n)} \bfP^{(m)}, \qquad \text{hence } \bfP^{(n)}=\bfP^n.
+\]
+For a set $A\subseteq S$, the \emph{hitting probability} from $i$ is
+$h_i(A)=\Pr_i(\exists n\ge 0: X_n\in A)$.
+\end{frame}
+
+\begin{frame}{Communication, classes, irreducibility.}
+We say $i\to j$ if $p^{(n)}_{ij}>0$ for some $n\ge 0$.
+States $i$ and $j$ \emph{communicate} if $i\to j$ and $j\to i$ (denote $i\leftrightarrow j$).
+This is an equivalence relation; its classes are \emph{communicating classes}.
+A chain is \emph{irreducible} if it has a single communicating class.
+\end{frame}
+
+\begin{frame}{Periodicity and aperiodicity.}
+The \emph{period} of state $i$ is
+\[
+d(i) \;=\; \gcd\{ n\ge 1 : p^{(n)}_{ii}>0\}.
+\]
+If $d(i)=1$ the state is \emph{aperiodic}. In an irreducible chain, all states share the same period.
+\end{frame}
+
+\begin{frame}{Stationary distribution and detailed balance.}
+A row vector $\bfpi$ with nonnegative entries summing to $1$ is \emph{stationary} if
+\[
+\bfpi \bfP \;=\; \bfpi.
+\]
+If there exists a positive measure $\bfpi$ s.t.\ $\bfpi_i p_{ij} = \bfpi_j p_{ji}$ for all $i,j$ (detailed balance),
+then $\bfpi$ (normalized) is stationary and the chain is \emph{reversible}.
+\end{frame}
+
+\begin{frame}{Convergence (ergodic theorem).}
+If the chain is finite, irreducible, and aperiodic, then there is a unique stationary distribution $\bfpi$ and
+\[
+\lim_{n\to\infty} \bfmu \bfP^n \;=\; \bfpi \quad \text{(independent of $\bfmu$).}
+\]
+Moreover, for any function $f:S\to\Real$,
+\[
+\frac{1}{N}\sum_{n=1}^N f(X_n) \xrightarrow[N\to\infty]{\text{a.s.}} \sum_{i\in S} \bfpi_i f(i).
+\]
+\end{frame}
+
+\begin{frame}{Example: two-state chain.}
+Let $S=\{0,1\}$ and
+\[
+\bfP = \begin{pmatrix} 1-a & a \\ b & 1-b \end{pmatrix}, \qquad a,b\in(0,1).
+\]
+Then the unique stationary distribution is
+\[
+\bfpi \;=\; \left( \frac{b}{a+b}, \frac{a}{a+b} \right),
+\]
+and $\bfmu \bfP^n \to \bfpi$ exponentially fast as $n\to\infty$.
+\end{frame}
+
+
+
+\end{document}
+

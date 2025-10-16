@@ -1,0 +1,98 @@
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+  %  grid=both,
+   % grid style={line width=.1pt, draw=gray!5},
+   % major grid style={line width=.2pt,draw=gray!20},
+    axis lines = middle,
+    legend cell align={left},
+        xtick={0}, %0, 2, 4},
+    %ytick={-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6},
+   % ytick={0.2,0.4,0.6,0.8,1.0},
+    ytick={-2,0,2,4,6,7, 8,10,12,14,16},
+    %ytick={-0,1.1},
+    %xlabel = $x$,
+    %ylabel = {$y$},
+    %legend style={at={(0.85,1)},anchor=north west},
+    xmin=-0.2,
+    xmax=1.1,
+    ymin=-2.2,
+    ymax=14.2,
+    width=1.2*\textwidth,
+    height=0.8*\textwidth
+]
+\addplot [
+    domain=0:0.392673744, 
+    samples=100, 
+    color=black,
+] {-2-ln(1-2.5*x)};
+
+\addplot [
+    domain=0.6:0.8, 
+    samples=100, 
+    color=black,
+] {9.5-2.5*sqrt(33-40*x)};
+% {0.05*x^2-0.2*x+0.8};
+
+ 
+ \addplot [
+     domain=0.392:0.6, 
+     samples=100, 
+     color=black,
+ ] { 2};
+
+\addplot [
+    domain=0.8:1.0, 
+    samples=100, 
+    color=black,
+] {14-2*sqrt(5-5*x)}; 
+
+\addplot+[black, only marks,mark=o] coordinates {(0.8,12)};
+\addplot+[black, only marks,mark=*,mark options={solid},text mark as node=true] coordinates {(0.8,7)};
+
+\draw[dashed,draw=gray!60] (axis cs: 0.392,2) -- node[left]{} (axis cs:0.3925,0);
+\draw[dashed,draw=gray!60] (axis cs: 0,2) -- node[left]{} (axis cs:0.4,2);
+
+
+\draw[dashed,draw=gray!60] (axis cs: 0.6,2) -- node[left]{} (axis cs:0.6,0);
+
+
+\draw[dashed,draw=gray!60] (axis cs: 0.8,12) -- node[left]{} (axis cs:0.8,0);
+
+\draw[dashed,draw=gray!60] (axis cs: 0,7) -- node[left]{} (axis cs:0.8,7);
+
+\draw[dashed,draw=gray!60] (axis cs: 0,12) -- node[left]{} (axis cs:0.8,12);
+
+\draw[dashed,draw=gray!60] (axis cs: 0,14) -- node[left]{} (axis cs:1,14);
+\draw[dashed,draw=gray!60] (axis cs: 1,14) -- node[left]{} (axis cs:1,0);
+
+
+\draw[draw=black, line width=0.2mm] (axis cs: 2,-0.2) -- node[left]{} (axis cs:2,0.2);
+\node[below] at (axis cs:0.4,-0.2) { {$0.4$}};
+
+\draw[draw=black, line width=0.3mm] (axis cs: 0.6,-0.2) -- node[left]{} (axis cs:0.6,0.2);
+\node[below] at (axis cs:0.6,-0.2) { {$0.6$}};
+
+\draw[draw=black, line width=0.3mm] (axis cs: 0.8,-0.2) -- node[left]{} (axis cs:0.8,0.2);
+\node[below] at (axis cs:0.8,-0.2) { {$0.8$}};
+
+\draw[draw=black, line width=0.3mm] (axis cs: 1.0,-0.2) -- node[left]{} (axis cs:1.0,0.2);
+\node[below] at (axis cs:1.0,-0.2) { {$1.0$}};
+
+
+\node[below] at (axis cs:1.08,-0.5) { {\large{$u$}}};
+\node[below] at (axis cs:-0.1,13.5) { {\large{$x$}}};
+
+
+
+
+\end{axis}
+ 
+\end{tikzpicture}
+\caption{The generalized inverse function $F^{\leftarrow}$ of  $F$ from Fig. \ref{rys2-2}.}\label{rys2-2b}%\label{fig:distrF_invA_all}
+\end{center}
+\end{figure}
+

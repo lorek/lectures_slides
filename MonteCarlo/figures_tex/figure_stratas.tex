@@ -1,0 +1,144 @@
+
+
+\begin{figure}[H]
+\begin{center}
+
+\begin{tikzpicture}[scale=0.56]
+\begin{axis}[
+  %  grid=both,
+   % grid style={line width=.1pt, draw=gray!5},
+   % major grid style={line width=.2pt,draw=gray!20},
+    axis lines = middle,
+    legend cell align={left},
+        xtick={0, 0.2, 0.4, 0.6, 0.8, 1.0}, %0, 2, 4},
+    %ytick={-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6},
+    ytick={2.4,3.2,3.666,3.919 },
+    %ytick={-0,1.1},
+    %xlabel = $x$,
+    %ylabel = {$y$},
+    %legend style={at={(0.85,1)},anchor=north west},
+    xmin=-0.4,
+    xmax=1.2,
+    ymin=-1.0,
+    ymax=4.2,
+    width=1.2*\textwidth,
+    height=1.0*\textwidth
+]
+\addplot [
+    domain=0:1.1,
+    samples=100,
+    color=black,
+] {4*sqrt(1-x^2)};
+%
+% \addplot [
+%     domain=-2:1.98,
+%     samples=100,
+%     color=black,
+% ] {0.4*(1-exp(-x-2))};
+%
+% \addplot [
+%     domain=2:7,
+%     samples=100,
+%     color=black,
+% ] {-0.004*x^2+0.076*x+0.464};
+% {0.05*x^2-0.2*x+0.8};
+%
+%
+% \addplot [
+%     domain=7:12,
+%     samples=100,
+%     color=black,
+% ] { 0.8};
+%
+% \addplot [
+%     domain=12:14,
+%     samples=100,
+%     color=black,
+% ] {-0.05*x^2+1.4*x-8.8};
+%
+% \addplot [
+%     domain=14:16,
+%     samples=100,
+%     color=black,
+% ] {1};
+
+%{ -0.0125*x^2+0.4*x-2.2};
+
+
+%
+
+% \draw(axis cs:-0.2,3.95)  node[left]{ {$A^1=$}};
+% \draw(axis cs:-0.2,3.79)  node[left]{ {$A^2=$}};
+% \draw(axis cs:-0.2,3.43)  node[left]{ {$A^3=$}};
+% \draw(axis cs:-0.2,2.8)  node[left]{ {$A^4=$}};
+% \draw(axis cs:-0.2,1.2)  node[left]{ {$A^5=$}};
+
+\draw[dashed,draw=gray!60] (axis cs: 0.0, 3.92) -- node[left]{} (axis cs: 0.2, 3.92);
+\draw[dashed,draw=gray!60] (axis cs: 0.2, 3.92) -- node[left]{} (axis cs: 0.2, 0.0);
+
+\draw[dashed,draw=gray!60] (axis cs: 0.0, 3.67) -- node[left]{} (axis cs: 0.4, 3.67);
+\draw[dashed,draw=gray!60] (axis cs: 0.4, 3.67) -- node[left]{} (axis cs: 0.4, 0.0);
+
+\draw[dashed,draw=gray!60] (axis cs: 0.0, 3.2) -- node[left]{} (axis cs: 0.6, 3.2);
+\draw[dashed,draw=gray!60] (axis cs: 0.6, 3.2) -- node[left]{} (axis cs: 0.6, 0.0);
+
+\draw[dashed,draw=gray!60] (axis cs: 0.0, 2.4) -- node[left]{} (axis cs: 0.8, 2.4);
+\draw[dashed,draw=gray!60] (axis cs: 0.8, 2.4) -- node[left]{} (axis cs: 0.8, 0.0);
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=-30pt,yshift=0pt]
+(axis cs: 0.0, 2.4) -- (axis cs: 0.0, 0.0) node [black,midway,xshift=-0.6cm]
+{\footnotesize $A^5$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=-30pt,yshift=0pt]
+(axis cs: 0.0, 3.2) -- (axis cs: 0.0, 2.4) node [black,midway,xshift=-0.6cm]
+{\footnotesize $A^4$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=-30pt,yshift=0pt]
+(axis cs: 0.0, 3.67) -- (axis cs: 0.0, 3.2) node [black,midway,xshift=-0.6cm]
+{\footnotesize $A^3$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=-30pt,yshift=0pt]
+(axis cs: 0.0, 3.92) -- (axis cs: 0.0, 3.67) node [black,midway,xshift=-0.6cm]
+{\footnotesize $A^2$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=-30pt,yshift=0pt]
+(axis cs: 0.0, 4.0) -- (axis cs: 0.0, 3.92) node [black,midway,xshift=-0.6cm]
+{\footnotesize $A^1$};
+
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=0pt,yshift=-16pt]
+(axis cs: 0.0, 0.0) -- (axis cs: 0.2, 0.0) node [black,midway,yshift=-18pt]
+{\footnotesize $S^1$};
+
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=0pt,yshift=-16pt]
+(axis cs: 0.2, 0.0) -- (axis cs: 0.4, 0.0) node [black,midway,yshift=-18pt]
+{\footnotesize $S^2$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=0pt,yshift=-16pt]
+(axis cs: 0.4, 0.0) -- (axis cs: 0.6, 0.0) node [black,midway,yshift=-18pt]
+{\footnotesize $S^3$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=0pt,yshift=-16pt]
+(axis cs: 0.6, 0.0) -- (axis cs: 0.8, 0.0) node [black,midway,yshift=-18pt]
+{\footnotesize $S^4$};
+
+\draw [decorate,decoration={brace,amplitude=10pt,mirror},xshift=0pt,yshift=-16pt]
+(axis cs: 0.8, 0.0) -- (axis cs: 1.0, 0.0) node [black,midway,yshift=-18pt]
+{\footnotesize $S^5$};
+
+
+
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+
+\caption{Example $I=\pi=EY$: $Y=4\sqrt{1-U^2}$ with $U\sim\calU[0,1)$ with
+5 strata $S^j=\linebreak 
+(0.2(j-1),0.2j)$ and corresponding sets/split $A^j, j=1,\ldots,5$ depicted.}\label{rys_strat_sets}
+\end{center}
+\end{figure}
+

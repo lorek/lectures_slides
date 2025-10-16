@@ -1,0 +1,95 @@
+\tikzset{middlearrow/.style={
+        decoration={markings,
+            mark= at position 0.5 with {\arrow{#1}} ,
+        },
+        postaction={decorate}
+    }
+}
+\begin{figure}[h]
+\begin{center}
+ 
+\begin{tikzpicture}[scale=1.1, every node/.style={scale=0.75},->,>=stealth',auto]
+\begin{axis}[
+    xmin=-0.25,xmax=6.5,
+    ymin=-0.25,ymax=6.5,
+    grid=both,
+    grid style={line width=.1pt, draw=gray!25},
+    major grid style={line width=.2pt,draw=gray!25},
+    axis lines=middle,
+    minor tick num=1,
+    enlargelimits={abs=1.0},
+    axis line style={latex-latex},
+    ticklabel style={font=\tiny,fill=white},
+    xticklabels={1,2,3,5,7},
+    yticklabels={1,2,3,5,7},
+    xlabel style={at={(ticklabel* cs:1)},anchor=north west},
+    ylabel style={at={(ticklabel* cs:1)},anchor=south west}
+]
+
+% FIGURE bbbbbbbbb
+
+%\coordinate (O) at (0,0);
+%%%\node[fill=white,circle,inner sep=0pt] (O-label) at ($(O)+(-135:10pt)$) {$O$};
+
+   \node at (axis cs: 3,-0.4) {\small{$i_1$}};  
+%   
+    \node at (axis cs: 7,-0.4) {\small{$N_1$}};  
+    \node at (axis cs: -0.6,4) {\small{$i_2$}};
+    \node at (axis cs: -0.6,7) {\small{$N_2$}};  
+%    
+   \draw[-,gray!70] (axis cs: 7,0) -- (axis cs: 7,7)  ;
+   \draw[-,gray!70] (axis cs: 0,7) -- (axis cs: 7,7)  ;
+%   
+   \draw[->] (axis cs: 3,4) -- (axis cs: 4,4)  node [midway, right=0.4cm] (TextNode1) {\small{$p_1(i_1)$}};
+   \draw[->] (axis cs: 3,4) -- (axis cs: 2,4)  node [midway, left=0.4cm] (TextNode2) {\small{$q_1(i_1)$}};
+%   
+   \draw[->] (axis cs: 3,4) -- (axis cs: 3,5)  node [midway, above=0.4cm] (TextNode3) {\small{$p_2(i_2)$}};
+   \draw[->] (axis cs: 3,4) -- (axis cs: 3,3)  node [midway, below=0.4cm] (TextNode4) {\small{$q_2(i_2)$}};
+    
+    \node at (axis cs: 7,7) (A) {$\bullet$};
+   
+  \path (A) edge [anchor=center,loop below] node {1} (A);
+ 
+  \node at (axis cs: 6.3,7) (A) {\textbf{WIN}};
+  
+ 
+
+
+ \draw[middlearrow={>}, color=gray] (axis cs: 2,0) to  [out=220,in=-5] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (L2) {\small{}};
+ 
+ \draw[middlearrow={>}, color=gray] (axis cs: 3,0) to  [out=220,in=-5] (axis cs: -0.8,-0.8)  node (L3) {\small{}};
+ 
+ \draw[middlearrow={>}, color=gray] (axis cs: 4,0) to  [out=200,in=0] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (L4) {\small{}};
+ 
+ \draw[middlearrow={>}, color=gray] (axis cs: 5,0) to  [out=200,in=0] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (L5) {\small{}};
+ 
+ \draw[middlearrow={>}, color=gray] (axis cs: 6,0) to  [out=200,in=0] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (L6) {\small{}};
+ 
+ \draw[middlearrow={>}, color=gray] (axis cs: 7,0) to  [out=210,in=0] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (L7) {\small{}};
+  
+  \draw[middlearrow={>}, color=gray] (axis cs: 0,1) to  [out=210,in=80] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU1) {\small{}};
+   
+ \draw[middlearrow={>}, color=gray] (axis cs: 0,2) to  [out=220,in=80] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU2) {\small{}};
+   
+ \draw[middlearrow={>}, color=gray] (axis cs: 0,3) to  [out=220,in=80] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU3) {\small{}};
+    
+ \draw[middlearrow={>}, color=gray] (axis cs: 0,4) to  [out=220,in=80] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU4) {\small{}};
+     
+ \draw[middlearrow={>}, color=gray] (axis cs: 0,5) to  [out=230,in=90] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU5) {\small{}};
+      
+ \draw[middlearrow={>}, color=gray] (axis cs: 0,6) to  [out=230,in=90] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU6) {\small{}};
+        
+ \draw[middlearrow={>}, color=gray] (axis cs: 0,7) to  [out=230,in=90] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU7) {\small{}};
+         
+         \draw[middlearrow={>}, color=gray] (axis cs: 0,1) to  [out=210,in=80] (axis cs: -0.8,-0.8)  node[midway,sloped,right=-2pt] (LU8) {\small{}};
+ 
+ \node at (axis cs: -0.8, -0.8) (lost) {$\bullet$};
+ \node at (axis cs: -0.62, -0.3) (lost_text) {\textbf{LOSE}};
+
+\end{axis}
+ 
+\end{tikzpicture}
+\end{center}
+\caption{A two dimensional game. See description in text.}\label{fig:queue2d}
+\end{figure}
+ 

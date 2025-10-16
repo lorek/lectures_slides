@@ -1,0 +1,117 @@
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+  %  grid=both,
+   % grid style={line width=.1pt, draw=gray!5},
+   % major grid style={line width=.2pt,draw=gray!20},
+    axis lines = middle,
+    legend cell align={left},
+        xtick={0}, %0, 2, 4},
+    %ytick={-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6},
+    ytick={0.25,0.5, 0.6,0.75,1.0},
+    %ytick={-0,1.1},
+    %xlabel = $x$,
+    %ylabel = {$y$},
+    %legend style={at={(0.85,1)},anchor=north west},
+    xmin=-1.3,
+    xmax=5.,
+    ymin=-0.2,
+    ymax=1.1,
+    width=1.2*\textwidth,
+    height=0.8*\textwidth
+]
+\addplot [
+    domain=0:5,
+    samples=100, 
+    color=black,
+] {exp(x)/(1+exp(x))};
+
+
+
+% 
+% \addplot+[black, only marks,mark=o] coordinates {(2,0.4)};
+% \addplot+[black, only marks,mark=*,mark options={solid},text mark as node=true] coordinates {(2,0.6)};
+
+\draw(axis cs:-0.37,0.6)  node[left]{{$\mu+\varepsilon=$}};
+\draw(axis cs:-0.35,0.5)  node[left]{ {$\kappa'(0)=\mu=$}};
+
+\draw(axis cs:2.2,1)  node[left]{ {$\kappa'(\theta)$}};
+
+\draw[dashed,draw=gray!60] (axis cs: 0,0.6) -- node[left]{} (axis cs:0.405,0.6);
+\draw[dashed,draw=gray!60] (axis cs: 0.405,0) -- node[left]{} (axis cs:0.405,0.6);
+
+\draw[draw=black, line width=0.2mm] (axis cs: 0.405,-0.02) -- node[left]{} (axis cs:0.405,0.02);
+
+\node[below] at (axis cs:0.405,-0.01) { {$\theta_0$}};
+\node[below] at (axis cs:2.5,-0.06) { {$\theta$}};
+\node[below] at (axis cs:0.405,-0.11) { {$0.4054$}};
+
+%\draw(axis cs:-0.1,0.5) -- node[left]{ {$\mu=$}} (axis cs:0.1,0.5);
+
+% \draw[dashed,draw=gray!60] (axis cs: 0,0.5) -- node[left]{} (axis cs:2,0.5);
+% \draw[dashed,draw=gray!60] (axis cs: 0,0.6) -- node[left]{} (axis cs:2,0.6);
+% \draw[dashed,draw=gray!60] (axis cs: 2,0.6) -- node[left]{} (axis cs:2,0);
+% \draw[draw=black, line width=0.2mm] (axis cs: 2,-0.02) -- node[left]{} (axis cs:2,0.02);
+% \draw[draw=black, line width=0.2mm] (axis cs: -0.2,0.5) -- node[left]{} (axis cs:0.2,0.5);
+%  
+% \addplot+[black, only marks,mark=*,mark size=1.2pt,mark options={solid},text mark as node=true] coordinates {(-2,0)};
+% \addplot+[black, only marks,mark=*,mark size=1.2pt,mark options={solid},text mark as node=true] coordinates {(2,0)};
+% \addplot+[black, only marks,mark=*,mark size=1.2pt,mark options={solid},text mark as node=true] coordinates {(7,0)};
+% \addplot+[black, only marks,mark=*,mark size=1.2pt,mark options={solid},text mark as node=true] coordinates {(12,0)};
+% \addplot+[black, only marks,mark=*,mark size=1.2pt,mark options={solid},text mark as node=true] coordinates {(14,0)};
+
+
+% \node[below] at (axis cs:-2.2,0.09) { {$-2$}};
+% \node[below] at (axis cs:2,-0.01) { {$x_1=F^{\leftarrow}(t_1)$}};
+
+% \node[below] at (axis cs:2,0.09) { {$2$}};
+
+
+% %\node[draw] at (0.1,0.8) {\small{$t=$}};
+% \draw(axis cs:-1,0.8)  node[left]{ {$F(x_3)=t_2=$}};
+% \draw[dashed,draw=gray!60] (axis cs: 0,0.8) -- node[left]{} (axis cs:7,0.8);
+% \draw[dashed,draw=gray!60] (axis cs: 7,0.8) -- node[left]{} (axis cs:7,0);
+% \draw[draw=black, line width=0.2mm] (axis cs: 7,-0.02) -- node[left]{} (axis cs:7,0.02);
+%
+% \node[below] at (axis cs:7,-0.01) { {$x_2=F^{\leftarrow}(t_2)$}};
+% \node[below] at (axis cs:7.9,-0.08) { {$ =F^{\leftarrow}(F(x_3))$}};
+% \node[below] at (axis cs:7,0.09) { {$7$}};
+
+
+%
+%
+% \draw[dashed,draw=gray!60]  (axis cs: 10,0.8) -- node[left]{} (axis cs:10,0);
+% \draw[draw=black, line width=0.2mm] (axis cs: 10,-0.02) -- node[left]{} (axis cs:10,0.02);
+% \node[below] at (axis cs:10,-0.03) { {$x_3$}};
+%
+%
+%
+% \draw(axis cs:-1,0.95)  node{ {$t_4$}};
+% \draw[dashed,draw=gray!60] (axis cs: 0,0.95) -- node[left]{} (axis cs:13,0.95);
+% \draw[dashed,draw=gray!60] (axis cs: 13,0.95) -- node[left]{} (axis cs:13,0);
+% \draw[draw=black, line width=0.2mm] (axis cs: -0.2,0.95) -- node[left]{} (axis cs:0.2,0.95);
+% \draw[draw=black, line width=0.2mm] (axis cs: 13,-0.02) -- node[left]{} (axis cs:13,0.02);
+% \node[below] at (axis cs:13,-0.01) { {$x_4=F^{\leftarrow}(t_4)$}};
+%
+% \node[below] at (axis cs:12,0.09) { {$12$}};
+% \draw[draw=black, line width=0.2mm] (axis cs: -0.2,0.8) -- node[left]{} (axis cs:0.2,0.8);
+% \draw[draw=black, line width=0.2mm] (axis cs: -0.2,0.6) -- node[left]{} (axis cs:0.2,0.6);
+%
+% \node[below] at (axis cs:14,0.09) { {$14$}};
+%
+% \node[below] at (axis cs:15.5,-0.03) { {\large{$x$}}};
+% \node[below] at (axis cs:-0.8, 1.1) { {\large{$t$}}};
+
+
+\end{axis}
+ 
+\end{tikzpicture}
+\caption{Derivative of the logarithmic moment genarating function $\kappa$ for $X$ with distribution  $\Prob(X_1=0)=\Prob(X_1=1)=1/2$
+and solution $\kappa'(\theta_0)=\mu+\varepsilon$.
+See Example \ref{ex:exp_chan_mes}.}\label{fig:kappa}
+\end{center}
+\end{figure}
+
